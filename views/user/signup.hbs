@@ -1,0 +1,38 @@
+<h2>Sign Up</h2>
+<div class="global-div">
+
+    <div class="nav-div">
+        <a href="/">Home</a>
+        <a href="/login">Log In</a>
+    </div> 
+
+    <div class="form-div">
+        <form action="/signup" method="POST">
+            <label>
+                First Name:
+                <input type="text" name="firstName">
+            </label>
+             <label>
+                Last Name:
+                <input type="text" name="lastName">
+            </label>
+             <label>
+                Email:
+                <input type="text" name="email">
+            </label>
+            <label>
+                Username:
+                <input type="text" name="username">
+            </label>
+            <label> 
+                Password:
+                <input type="password" name="password">
+            </label>
+            <button type="submit">Sign Up</button>
+        </form>
+
+{{#if errorMessage}}
+    <h5>{{errorMessage}}</h5>
+{{/if}}
+    </div>
+
