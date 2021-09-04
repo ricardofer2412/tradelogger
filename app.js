@@ -35,6 +35,32 @@ app.use("/trades", trades);
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 
+
+
+app.get('/signup', function(req, res) {
+    User.findOne({username: req.query.username}, function(err, user){
+        let errorMessage;
+        if(err) {
+          console.log(err);
+        }
+        
+        if(user) {
+          console.log(user)
+          errorMessage = "user exists";
+            console.log(errorMessage)
+        } else {
+            errorMessage= "user doesn't exist";
+            console.log(errorMessage)
+        }
+        res.json({errorMessage: errorMessage});
+    });
+});
+
+
+
+
+
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

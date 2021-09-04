@@ -9,13 +9,14 @@ router.get('/signup', (req, res, next) =>{
 
 router.post("/signup", (req, res, next) =>{
     const {firstName, lastName, email, username, password} = req.body;
+
     if(!firstName || !lastName || !email || !username || !password){
         res.render('user/signup', {
         errorMessage: "Please fill out all required fields"
         })
-     
     }else{
        User.findOne({username}).then(user =>{
+            console.log("user from db", username , email);
             if(!user){
             const hashedPassword = bcrypt.hashSync(password, 10)
              User.create({
@@ -29,10 +30,8 @@ router.post("/signup", (req, res, next) =>{
                  console.log({user : createdUser})
             res.render('user/dashboard', {user : createdUser});
             })
-           
         }
        })
-       
     }
 })
 
