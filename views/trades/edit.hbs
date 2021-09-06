@@ -1,1 +1,33 @@
-<h2>Edit Trades</h2>
+<h2>Update Trade</h2>
+
+<form actions='/trades/{{_id}}/edit' method='post'>
+
+    <label>
+        Ticker:
+        <input type='text' name='ticker' value='{{ticker}}' />
+    </label>
+
+    <label>
+        Entry Price
+        <input type='number' name='entryPrice' value='{{entryPrice}}' />
+    </label>
+    <label>
+        Entry Date:
+        <input type='date' name='dateAdded' value='{{dateAdded}}'/>
+    </label>
+
+
+    <label>
+        Exit Price:
+        <input type='text' name='exitPrice' value='{{exitPrice}}'/>
+    </label>
+    <label>
+        Exit Date
+        <input type='date' name='dateExited' value='{{dateExited}}'/>
+    </label>
+
+
+    <button type='submit'>Save</button>
+
+
+</form>

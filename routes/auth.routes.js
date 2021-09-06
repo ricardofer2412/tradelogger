@@ -55,7 +55,7 @@ router.post('/login', isLoggedOut, (req, res, next) =>{
                 })
             }else if(bcrypt.compareSync(password, userFromDB.password)){
                 req.session.currentUser = userFromDB;
-                res.status(200).render('user/dashboard', userFromDB);
+                res.status(200).redirect('/dashboard');
             }else{
                 res.status(500).render('user/login', {errorMessage: "Incorrect Log In data"})
             }

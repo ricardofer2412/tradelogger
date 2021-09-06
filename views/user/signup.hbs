@@ -1,10 +1,10 @@
 <h2>Sign Up</h2>
 <div class="global-div">
-
+{{!-- 
     <div class="nav-div">
         <a href="/">Home</a>
         <a href="/login">Log In</a>
-    </div> 
+    </div>  --}}
 
     <div class="form-div">
         <form action="/signup" method="POST">
@@ -30,7 +30,7 @@
             </label>
             <button type="submit">Sign Up</button>
         </form>
-
+    <p>You have an account?Login <a href="/login">here</a> </p>
 {{#if errorMessage}}
     <h5>{{errorMessage}}</h5>
 {{/if}}
