@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model')
 const bcrypt = require('bcryptjs');
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
 
-router.get('/signup', (req, res, next) =>{
+router.get('/signup', isLoggedOut, (req, res, next) =>{
     res.render('user/signup')
 })
 
-router.post("/signup", (req, res, next) =>{
+router.post("/signup", isLoggedOut, (req, res, next) =>{
     const {firstName, lastName, email, username, password} = req.body;
 
     if(!firstName || !lastName || !email || !username || !password){
@@ -27,7 +28,7 @@ router.post("/signup", (req, res, next) =>{
                 password: hashedPassword
                 
             }).then(createdUser =>{
-                 console.log({user : createdUser})
+                
             res.render('user/dashboard', {user : createdUser});
             })
         }
@@ -35,11 +36,12 @@ router.post("/signup", (req, res, next) =>{
     }
 })
 
-router.get('/login', (req, res, next) =>{
+router.get('/login', isLoggedOut, (req, res, next) =>{
     res.render('user/login')
 })
 
-router.post('/login', (req, res, next) =>{
+router.post('/login', isLoggedOut, (req, res, next) =>{
+    console.log('SESSION ======>', req.session)
     const {username, password} = req.body;
     if(!username || !password){
         res.render('user/login', {
@@ -52,8 +54,8 @@ router.post('/login', (req, res, next) =>{
                     errorMessage: "We could not find you! Would you like to create an account?"
                 })
             }else if(bcrypt.compareSync(password, userFromDB.password)){
-                //req.session.user = userFromDB
-                res.status(200).render('user/dashboard', {user: userFromDB});
+                req.session.currentUser = userFromDB;
+                res.status(200).render('user/dashboard', userFromDB);
             }else{
                 res.status(500).render('user/login', {errorMessage: "Incorrect Log In data"})
             }
@@ -61,10 +63,22 @@ router.post('/login', (req, res, next) =>{
     }
 })
 
-// router.get('/profile', (req, res, next) => {
-//     res.render('user/profile', {user: userFromDB})
-// })
 
+router.get('/dashboard', isLoggedIn,(req, res, next) =>{
+    res.render('user/dashboard', {user: req.session.currentUser})
+})
+
+router.get('/profile', isLoggedIn, (req, res, next) => {
+    console.log('user in session:', {userInSession: req.session.currentUser})
+    res.render('user/profile', {userInSession: req.session.currentUser}) 
+})
+
+router.post('/logout', isLoggedIn, (req, res, next) => {
+    req.session.destroy(err => {
+        if(err) next(err);
+        res.redirect('/');
+    })
+})
 
 
 

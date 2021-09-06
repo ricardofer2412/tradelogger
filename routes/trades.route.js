@@ -3,19 +3,20 @@ const { route } = require(".");
 const { routes } = require("../app");
 const Trades = require("../models/Trade.model");
 const router = require("express").Router();
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
 
-router.get("/", (req, res, next) => {
+router.get("/", isLoggedIn, (req, res, next) => {
   Trades.find().then((responseFromDB) => {
     console.log(responseFromDB);
     res.render("trades/trades", { trades: responseFromDB });
   });
 });
 
-router.get("/create", (req, res, next) => {
+router.get("/create", isLoggedIn, (req, res, next) => {
   res.render("trades/create");
 });
 
-router.post("/create", (req, res, next) => {
+router.post("/create", isLoggedIn, (req, res, next) => {
   console.log(req.body);
   Trades.create(req.body)
     .then((newTrade) => {
@@ -26,7 +27,7 @@ router.post("/create", (req, res, next) => {
 
 //delete
 
-router.post("/:id/delete", (req, res, next) => {
+router.post("/:id/delete", isLoggedIn, (req, res, next) => {
   console.log(req.params.id);
   Trades.findByIdAndDelete(req.params.id)
     .then(() => {

@@ -15,8 +15,15 @@ const hbs = require("hbs");
 
 const app = express();
 
+
+
+
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
+
 require("./config")(app);
+require('./config/session.config')(app);
+
 
 // default value for title local
 const projectName = "tradelogger";
@@ -36,25 +43,6 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 
 
-
-app.get('/signup', function(req, res) {
-    User.findOne({username: req.query.username}, function(err, user){
-        let errorMessage;
-        if(err) {
-          console.log(err);
-        }
-        
-        if(user) {
-          console.log(user)
-          errorMessage = "user exists";
-            console.log(errorMessage)
-        } else {
-            errorMessage= "user doesn't exist";
-            console.log(errorMessage)
-        }
-        res.json({errorMessage: errorMessage});
-    });
-});
 
 
 
