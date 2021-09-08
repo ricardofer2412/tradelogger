@@ -80,6 +80,7 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
     })
 })
 
+
 router.get("/profile", isLoggedIn, (req, res, next) => {
   console.log("user in session:", { userInSession: req.session.currentUser });
   res.render("user/profile", { userInSession: req.session.currentUser });
