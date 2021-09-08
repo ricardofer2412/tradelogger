@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
+const Account = require("../models/Account.model");
+
 const bcrypt = require("bcryptjs");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
@@ -17,9 +19,10 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
     });
   } else {
     User.findOne({ username }).then((user) => {
-      console.log("user from db", username, email);
+      console.log("user from db", username, email, id);
       if (!user) {
         const hashedPassword = bcrypt.hashSync(password, 10);
+
         User.create({
           firstName,
           lastName,
@@ -27,8 +30,15 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
           username,
           password: hashedPassword,
         }).then((createdUser) => {
+          Account.create({
+            accountBalance: 100000,
+            userId: req.session.currentUser,
+          });
+
           req.session.currentUser = createdUser;
-          res.redirect("/dashboard");
+          res.redirect("/");
+          console.log("New user has been created");
+          console.log(req.session);
         });
       }
     });
