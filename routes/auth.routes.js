@@ -19,7 +19,7 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
     });
   } else {
     User.findOne({ username }).then((user) => {
-      console.log("user from db", username, email, id);
+    //   console.log("user from db", username, email);
       if (!user) {
         const hashedPassword = bcrypt.hashSync(password, 10);
 
@@ -29,18 +29,20 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
           email,
           username,
           password: hashedPassword,
-        }).then((createdUser) => {
-          Account.create({
-            accountBalance: 100000,
-            userId: req.session.currentUser,
-          });
-
+         })
+         .then((createdUser) => {
+        //   Account.create({
+        //     accountBalance: 100000,
+        //     userId: {currentUser: _id}
+        //   })
+        
+        //   console.log(userId)
           req.session.currentUser = createdUser;
-          res.redirect("/");
-          console.log("New user has been created");
-          console.log(req.session);
-        });
-      }
+          res.redirect('/dashboard')
+        //   console.log("New user has been created");
+        //   console.log(req.session);
+         });
+    }
     });
   }
 });
