@@ -11,41 +11,24 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 router.post("/signup", isLoggedOut, (req, res, next) => {
   const { firstName, lastName, email, username, password } = req.body;
 
-    if(!firstName || !lastName || !email || !username || !password){
-        res.render('user/signup', {
-        errorMessage: "Please fill out all required fields"
-        })
-    }else{
-       User.findOne({username}).then(user =>{
-            console.log("user from db", username , email);
-            if(!user){
-            const hashedPassword = bcrypt.hashSync(password, 10)
-             User.create({
-                firstName,
-                lastName,
-                email,
-                username,
-                password: hashedPassword
-                
-            }).then(createdUser =>{
-                req.session.currentUser = createdUser;
-            res.redirect('/dashboard');
-            })
-        }
-       })
-    }
-})
-
-router.get('/login', isLoggedOut, (req, res, next) =>{
-    res.render('user/login')
-})
-
-router.post('/login', isLoggedOut, (req, res, next) =>{
-    console.log('SESSION ======>', req.session)
-    const {username, password} = req.body;
-    if(!username || !password){
-        res.render('user/login', {
-            errorMessage: "Please enter both username and password"
+  if (!firstName || !lastName || !email || !username || !password) {
+    res.render("user/signup", {
+      errorMessage: "Please fill out all required fields",
+    });
+  } else {
+    User.findOne({ username }).then((user) => {
+      console.log("user from db", username, email);
+      if (!user) {
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        User.create({
+          firstName,
+          lastName,
+          email,
+          username,
+          password: hashedPassword,
+        }).then((createdUser) => {
+          req.session.currentUser = createdUser;
+          res.redirect("/dashboard");
         });
       }
     });
@@ -92,6 +75,7 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
         res.redirect('/');
     })
 })
+
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
   console.log("user in session:", { userInSession: req.session.currentUser });

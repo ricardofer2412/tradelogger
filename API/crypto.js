@@ -1,13 +1,14 @@
 const finnhub = require("finnhub");
+const router = require("../routes");
 
 const api_key = finnhub.ApiClient.instance.authentications["api_key"];
 api_key.apiKey = "budf5mn48v6ped90n62g";
 const finnhubClient = new finnhub.DefaultApi();
 
-window.onload = () => {
-  console.log("api request");
+console.log("api request");
 
-  finnhubClient.quote("CHPT", (error, data, response) => {
-    console.log(data);
+router.get("/stocks/:stock", (req, res, next) => {
+  finnhubClient.quote("TSLA", (error, data, response) => {
+    console.log("Tesla Price: ", data.o);
   });
-};
+});
