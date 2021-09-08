@@ -67,12 +67,15 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
 //this is logout routes
 
-router.post("/logout", isLoggedIn, (req, res, next) => {
-  req.session.destroy((err) => {
-    if (err) next(err);
-    res.redirect("/");
-  });
-});
+//this is logout routes
+
+router.post('/logout', isLoggedIn, (req, res, next) => {
+    req.session.destroy(err => {
+        if(err) next(err);
+        res.redirect('/');
+    })
+})
+
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
   console.log("user in session:", { userInSession: req.session.currentUser });
