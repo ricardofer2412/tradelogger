@@ -42,8 +42,8 @@ app.use("/trades", trades);
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 
-
-
+const apiRoutes = require("./routes/api.routes")
+app.use("/search", apiRoutes);
 
 
 

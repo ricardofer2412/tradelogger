@@ -36,21 +36,6 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
     }
 })
 
-router.get('/login', isLoggedOut, (req, res, next) =>{
-    res.render('user/login')
-})
-
-router.post('/login', isLoggedOut, (req, res, next) =>{
-    console.log('SESSION ======>', req.session)
-    const {username, password} = req.body;
-    if(!username || !password){
-        res.render('user/login', {
-            errorMessage: "Please enter both username and password"
-        });
-      }
-    });
-  }
-});
 
 router.get("/login", isLoggedOut, (req, res, next) => {
   res.render("user/login");
@@ -82,7 +67,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 });
 
-//this is logout routes
+router.get('/dashboard', isLoggedIn, (req, res, next)=>{
+    res.render('user/dashboard', {user: req.session.currentUser})
+})
 
 //this is logout routes
 
