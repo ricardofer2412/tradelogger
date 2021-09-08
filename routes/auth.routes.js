@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
+const Account = require("../models/Account.model");
+
 const bcrypt = require("bcryptjs");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
@@ -11,41 +13,32 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 router.post("/signup", isLoggedOut, (req, res, next) => {
   const { firstName, lastName, email, username, password } = req.body;
 
-    if(!firstName || !lastName || !email || !username || !password){
-        res.render('user/signup', {
-        errorMessage: "Please fill out all required fields"
-        })
-    }else{
-       User.findOne({username}).then(user =>{
-            console.log("user from db", username , email);
-            if(!user){
-            const hashedPassword = bcrypt.hashSync(password, 10)
-             User.create({
-                firstName,
-                lastName,
-                email,
-                username,
-                password: hashedPassword
-                
-            }).then(createdUser =>{
-                req.session.currentUser = createdUser;
-            res.redirect('/dashboard');
-            })
-        }
-       })
-    }
-})
+  if (!firstName || !lastName || !email || !username || !password) {
+    res.render("user/signup", {
+      errorMessage: "Please fill out all required fields",
+    });
+  } else {
+    User.findOne({ username }).then((user) => {
+      console.log("user from db", username, email, id);
+      if (!user) {
+        const hashedPassword = bcrypt.hashSync(password, 10);
 
-router.get('/login', isLoggedOut, (req, res, next) =>{
-    res.render('user/login')
-})
+        User.create({
+          firstName,
+          lastName,
+          email,
+          username,
+          password: hashedPassword,
+        }).then((createdUser) => {
+          Account.create({
+            accountBalance: 100000,
+            userId: req.session.currentUser,
+          });
 
-router.post('/login', isLoggedOut, (req, res, next) =>{
-    console.log('SESSION ======>', req.session)
-    const {username, password} = req.body;
-    if(!username || !password){
-        res.render('user/login', {
-            errorMessage: "Please enter both username and password"
+          req.session.currentUser = createdUser;
+          res.redirect("/");
+          console.log("New user has been created");
+          console.log(req.session);
         });
       }
     });
@@ -92,6 +85,7 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
         res.redirect('/');
     })
 })
+
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
   console.log("user in session:", { userInSession: req.session.currentUser });
