@@ -28,8 +28,8 @@ router.post("/signup", isLoggedOut, (req, res, next) =>{
                 password: hashedPassword
                 
             }).then(createdUser =>{
-                
-            res.render('user/dashboard', {user : createdUser});
+                req.session.currentUser = createdUser;
+            res.redirect('/dashboard');
             })
         }
        })
