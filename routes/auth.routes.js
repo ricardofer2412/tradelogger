@@ -19,7 +19,6 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
     });
   } else {
     User.findOne({ username }).then((user) => {
-      console.log("user from db", username, email, id);
       if (!user) {
         const hashedPassword = bcrypt.hashSync(password, 10);
 
@@ -30,15 +29,18 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
           username,
           password: hashedPassword,
         }).then((createdUser) => {
+          const userId = createdUser._id;
           Account.create({
             accountBalance: 100000,
-            userId: req.session.currentUser,
+            userId: userId,
           });
-
-          req.session.currentUser = createdUser;
+          console.log("this is userID", userId);
+          // return User.findByIdAndUpdate(User, {
+          //   $push: { account: createdUser._id },
+          // });
           res.redirect("/");
           console.log("New user has been created");
-          console.log(req.session);
+          console.log("this is userID", userId);
         });
       }
     });
@@ -79,13 +81,12 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
 //this is logout routes
 
-router.post('/logout', isLoggedIn, (req, res, next) => {
-    req.session.destroy(err => {
-        if(err) next(err);
-        res.redirect('/');
-    })
-})
-
+router.post("/logout", isLoggedIn, (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) next(err);
+    res.redirect("/");
+  });
+});
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
   console.log("user in session:", { userInSession: req.session.currentUser });
