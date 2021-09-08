@@ -8,7 +8,8 @@ const finnhubClient = new finnhub.DefaultApi()
 
 
 router.get('/stocks', (req, res, next) => {
-    finnhubClient.stockSymbols("US", (error, data, response) => {
+    res.render('stocks/stocks-info')
+    finnhubClient.stockSymbols("APPL", (error, data, response) => {
   console.log(data)
 });
 })
