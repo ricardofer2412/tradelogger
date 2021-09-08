@@ -33,14 +33,21 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
           Account.create({
             accountBalance: 100000,
             userId: userId,
+          }).then((account) => {
+            // const accountId = account._id;
+            // console.log("Updated accountID = ", accountId);
+            // User.findByIdAndUpdate(
+            //   userId,
+            //   { accountId: accountId },
+            //   { new: true }
+            // );
+            return User.findByIdAndUpdate(userId, {
+              accountId: account._id,
+            }).then(() => {
+              console.log("this is user ID", userId);
+              res.redirect("/dashboard");
+            });
           });
-          console.log("this is userID", userId);
-          // return User.findByIdAndUpdate(User, {
-          //   $push: { account: createdUser._id },
-          // });
-          res.redirect("/");
-          console.log("New user has been created");
-          console.log("this is userID", userId);
         });
       }
     });
