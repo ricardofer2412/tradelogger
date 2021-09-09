@@ -19,7 +19,6 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
     });
   } else {
     User.findOne({ username }).then((user) => {
-    //   console.log("user from db", username, email);
       if (!user) {
         const hashedPassword = bcrypt.hashSync(password, 10);
 
@@ -29,20 +28,22 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
           email,
           username,
           password: hashedPassword,
-         })
-         .then((createdUser) => {
-        //   Account.create({
-        //     accountBalance: 100000,
-        //     userId: {currentUser: _id}
-        //   })
-        
-        //   console.log(userId)
-          req.session.currentUser = createdUser;
-          res.redirect('/dashboard')
-        //   console.log("New user has been created");
-        //   console.log(req.session);
-         });
-    }
+        }).then((createdUser) => {
+          const userId = createdUser._id;
+          Account.create({
+            accountBalance: 100000,
+            userId: userId,
+          }).then((account) => {
+           
+            return User.findByIdAndUpdate(userId, {
+              accountId: account._id,
+            }).then(() => {
+              console.log("this is user ID", userId);
+              res.redirect("/dashboard");
+            });
+          });
+        });
+      }
     });
   }
 });
@@ -83,13 +84,12 @@ router.get('/dashboard', isLoggedIn, (req, res, next)=>{
 
 //this is logout routes
 
-router.post('/logout', isLoggedIn, (req, res, next) => {
-    req.session.destroy(err => {
-        if(err) next(err);
-        res.redirect('/');
-    })
-})
-
+router.post("/logout", isLoggedIn, (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) next(err);
+    res.redirect("/");
+  });
+});
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
   console.log("user in session:", { userInSession: req.session.currentUser });

@@ -4,10 +4,7 @@ const mongoose = require('mongoose');
 
 const accountSchema = new Schema({
   accountBalance: Number,
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }
+  userId: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const Account = model("Account", accountSchema);
