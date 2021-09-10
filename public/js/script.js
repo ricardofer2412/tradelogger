@@ -5,3 +5,5 @@ document.addEventListener(
   },
   false
 );
+
+console.log("this is user", userInSession);
