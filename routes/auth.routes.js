@@ -34,13 +34,7 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
             accountBalance: 100000,
             userId: userId,
           }).then((account) => {
-            // const accountId = account._id;
-            // console.log("Updated accountID = ", accountId);
-            // User.findByIdAndUpdate(
-            //   userId,
-            //   { accountId: accountId },
-            //   { new: true }
-            // );
+           
             return User.findByIdAndUpdate(userId, {
               accountId: account._id,
             }).then(() => {
@@ -84,7 +78,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 });
 
-//this is logout routes
+router.get('/dashboard', isLoggedIn, (req, res, next)=>{
+    res.render('user/dashboard', {user: req.session.currentUser})
+})
 
 //this is logout routes
 
