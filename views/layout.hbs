@@ -20,11 +20,7 @@
             <li class="navbar-brand"><a style="text-decoration: none;" class="trading-app" href="/"><strong>TRADING APP</strong></a></li>
          </ul>
 
-         <div class="navbar-search">
-            <form action="/stock/quote">
-            Search Ticker:
-            <input type="text" name="symbol">
-            <button>Search</button>
+       
          </form>
 
          {{#if userInSession}}
@@ -33,6 +29,11 @@
          </div>
          
          {{else}}
+         <div class="navbar-search">
+            <form action="/stock/quote">
+               Search Ticker:
+               <input type="text" name="symbol">
+               <button>Search</button>
           <div class="div-login">
             <a style="text-decoration: none;" href="/login" class="a-login">Log In</a>
          </div>
