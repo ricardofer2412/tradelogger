@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 const finnhub = require("finnhub");
 const router = require("../routes");
 
@@ -14,4 +12,3 @@ router.get("/stocks/:stock", (req, res, next) => {
     console.log("Tesla Price: ", data.o);
   });
 });
->>>>>>> 0ffd86d6d894859e63784bd826c5c5dd41ac97cc
