@@ -92,6 +92,23 @@ h1 {
   margin: 0px;
 }
 
+.navbar-search{
+  display: flex;
+  flex-direction: row;
+}
+.navbar-search form{
+  padding-right: 30px;
+}
+
+.navbar-search form button{
+  background-color: black;
+  color: white;
+  height: 40px;
+  box-shadow: 0;
+  border-radius: 4px;
+}
+
+
 ul {
   list-style-type: none;
 }
