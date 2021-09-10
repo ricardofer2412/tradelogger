@@ -1,1 +1,54 @@
+<header class="header">
+  <div class="box1">
 
+    <div class="welcome-text">
+        <h2 class="wta">Welcome to Trading App</h2>
+    </div>
+
+    <div class="inves-text">
+        <h4 class="investing-text">Investing for everyone</h4>
+    </div>
+
+    <div class="div-span">
+        <span class="span-text">Commission-free investing, plus the tools<br>you need to put your money in motion 
+            <br>Sign up and get your first stock for free. Certain limitations apply.</span>
+    </div>
+
+    <div class="div-button">
+      <button class="signup-btn" style="text-decoration: none;" href="/signup">Sign Up</button>  
+    </div>
+
+ </div>
+</header>
+
+ <section class="section">
+     <div class="trading-tx">
+         <P>Trading</P>
+     </div>
+ </section>
+
+ <footer class="footer">
+     <div class="footer-txt">
+         <p>This is the footer</p>
+     </div>
+ </footer>
+
+
+
+{{!-- {{#if userInSession}}
+<h2>Hello {{userInSession.username}}!</h2>
+<a href="/dashboard">Dashboard</a>
+<a href="/profile">Profile</a>
+{{/if}} --}}
+{{!-- <p>Trading</p> --}}
+{{#if user}}
+
+<a>SigOut</a>
+
+
+{{else}}
+{{!-- <a href="/login">Login</a>
+<a href="/signup"> Sign Up</a> --}}
+
+
+{{/if}}
