@@ -18,9 +18,6 @@ finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
         res.render('stocks/stocks-info', {quoteData, companyData, stock});
     })
   })
-
-
-
 })
 
 

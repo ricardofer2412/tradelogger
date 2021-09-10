@@ -81,24 +81,15 @@ router.get('/dashboard', isLoggedIn, (req, res, next)=>{
     res.render('user/dashboard', {user: req.session.currentUser})
 })
 
-//this is logout routes
-
-router.post("/logout", isLoggedIn, (req, res, next) => {
-  req.session.destroy((err) => {
-    if (err) next(err);
-    res.redirect("/");
-  });
-});
+router.get('/logout', isLoggedIn, (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+ });
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
   res.render("user/profile", { userInSession: req.session.currentUser });
 });
 
-router.post("/logout", isLoggedIn, (req, res, next) => {
-  req.session.destroy((err) => {
-    if (err) next(err);
-    res.redirect("/");
-  });
-});
 
 module.exports = router;
