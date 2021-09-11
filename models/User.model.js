@@ -15,6 +15,7 @@ const userSchema = new Schema({
   },
   password: String,
   accountId: { type: Schema.Types.ObjectId, ref: "Account" },
+  posts: { type: Schema.Types.ObjectId, ref: 'Post' }
 });
 
 const User = model("User", userSchema);
