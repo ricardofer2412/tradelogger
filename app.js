@@ -33,8 +33,8 @@ app.use(userToLocals);
 // const getPrice = require("./public/js/stocksPrices");
 // app.use(getPrice);
 
-const currentUrl = require("./middleware/current-url")
-app.use(currentUrl)
+const currentUrl = require("./middleware/current-url");
+app.use(currentUrl);
 
 // 👇 Start handling routes here
 const index = require("./routes/index");
@@ -49,10 +49,8 @@ app.use("/", authRoutes);
 const apiRoutes = require("./routes/api.routes");
 app.use("/stock", apiRoutes);
 
-const postRoutes = require("./routes/post.routes")
-app.use(`/post`, postRoutes);
-
-
+// const postRoutes = require("./routes/post.routes")
+// app.use(`/post`, postRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
