@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const tradeSchema = new Schema({
+  tickerId: String,
   ticker: String,
   entryPrice: Number,
   exitPrice: Number,

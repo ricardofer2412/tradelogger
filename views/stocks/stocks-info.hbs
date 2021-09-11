@@ -19,18 +19,16 @@
         <form actions='/trades/create' method='post'>
             <label>
                Market Price
-               
-            
-                <p id='marketPrice'> {{quoteData.c}} </p>
+                <p id='marketPrice' name='price'> {{quoteData.c}} </p>
             </label>
             <label>
                 Shares:
-                <input type='number' id:'sharesNumber' name='sharesNumber' />
+                <input type='number' id='sharesNumber' name='sharesNumber' />
             </label>
         
             <h4>Estimated Cost = </h4>
-      
-            <button type='submit'>Buy</button>
+            <h2 id='estimateValue'>$0</h2>
+            <button type='submit'>Buy Now</button>
             <p>Buying Power Available: </p>
         
         
