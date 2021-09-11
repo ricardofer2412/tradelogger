@@ -15,15 +15,10 @@ const hbs = require("hbs");
 
 const app = express();
 
-
-
-
-
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 
 require("./config")(app);
-require('./config/session.config')(app);
-
+require("./config/session.config")(app);
 
 // default value for title local
 const projectName = "tradelogger";
@@ -32,8 +27,11 @@ const capitalized = (string) =>
 
 // app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
-const userToLocals = require("./middleware/user-in-locals")
-app.use(userToLocals)
+const userToLocals = require("./middleware/user-in-locals");
+app.use(userToLocals);
+
+// const getPrice = require("./public/js/stocksPrices");
+// app.use(getPrice);
 
 const currentUrl = require("./middleware/current-url")
 app.use(currentUrl)
@@ -48,7 +46,7 @@ app.use("/trades", trades);
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
 
-const apiRoutes = require("./routes/api.routes")
+const apiRoutes = require("./routes/api.routes");
 app.use("/stock", apiRoutes);
 
 const postRoutes = require("./routes/post.routes")

@@ -1,4 +1,4 @@
-const finnhub = require('finnhub');
+const finnhub = require("finnhub");
 const express = require("express");
 const router = express.Router(); 
 const axios = require('axios');
@@ -11,9 +11,9 @@ const Post = require('../models/Post.model')
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
 //search for stock
-router.get('/quote', isLoggedIn, (req, res, next) => {
-    const query = req.query.symbol;
-    const stock = query.toUpperCase();
+router.get("/quote", isLoggedIn, (req, res, next) => {
+  const query = req.query.symbol;
+  const stock = query.toUpperCase();
 
 finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
     finnhubClient.companyProfile2({'symbol': stock}, (error, companyData, response) => {
@@ -27,8 +27,6 @@ finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
   })
   
 })
-
-
 
   
 
