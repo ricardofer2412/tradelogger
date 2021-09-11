@@ -1,0 +1,33 @@
+ <h2>Post details page</h2>
+ <div>
+    <h5><a href="/post/{{post._id}}">{{post.title}}</a> - {{post.author.username}}</h5>
+    <p>{{post.content}}</p>
+    <ul>
+        {{#each post.comments}}
+            <li>Comment: {{this.content}}</li>
+        {{/each}}
+
+    </ul>
+</div>
+
+
+
+<form action="/comment-create/{{post._id}}" method="POST">
+
+  <label> Content:
+    <textarea type="text" name="content"> </textarea>
+  </label>
+  <br>
+
+  <label for="author-select"> Created by:
+    <select name="author">
+      <option disable selected value=""></option>
+      {{#each dbUsers}}
+        <option value="{{this._id}}"> {{this.username}} </option>
+      {{/each}}
+    </select>
+  </label>
+  <br>
+
+  <button type="submit"> Create the post </button>
+</form>
