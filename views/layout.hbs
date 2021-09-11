@@ -2,49 +2,52 @@
 <!DOCTYPE html>
 <html lang="en">
 
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>{{title}}</title>
-      <link rel="stylesheet" href="/stylesheets/style.css" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-   integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>{{title}}</title>
+   <link rel="stylesheet" href="/stylesheets/style.css" />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
-   </head>
+</head>
 
-   <body id='main'>
-      
-    <nav class="navbar">
+<body id='main'>
 
-         <ul>
-            <li class="navbar-brand"><a style="text-decoration: none;" class="trading-app" href="/"><strong>TRADING APP</strong></a></li>
-         </ul>
+   <nav class="navbar">
 
-         <div class="navbar-search">
-            <form action="/stock/quote">
+      <ul>
+         <li class="navbar-brand"><a style="text-decoration: none;" class="trading-app" href="/"><strong>TRADING
+          APP</strong></a></li>
+      </ul>
+
+
+      {{#if userInSession}}
+      <div class="navbar-search">
+         <form action="/stock/quote">
             Search Ticker:
             <input type="text" name="symbol">
             <button>Search</button>
          </form>
 
-         {{#if userInSession}}
-         <div class="div -login">
+         <div class="div-login">
             <a style="text-decoration: none;" href="/logout" class="a-login">Log Out</a>
          </div>
-         
+
          {{else}}
-          <div class="div-login">
+         <div class="div-login">
             <a style="text-decoration: none;" href="/login" class="a-login">Log In</a>
          </div>
          {{/if}}
-         </div>
-         
+      </div>
 
-      </nav>
-      {{{body}}}
 
-      <script src="/js/script.js"></script>
-   </body>
+   </nav>
+   {{{body}}}
+   <script type="text/javascript" src="/js/stocksPrices.js"></script>
+
+   <script src="/js/script.js"></script>
+</body>
 
 </html>
