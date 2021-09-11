@@ -1,3 +1,44 @@
 
-<h2>Company Name: {{companyData.name}}</h2>
-<h3>Current Price: {{quoteData.c}}</h3>
+
+<div>
+    <div class='graph'>
+        <div>
+            <img src={{companyData.logo}} alt="">
+        <h2>{{companyData.name}}</h2>
+        <h3>{{quoteData.c}}</h3>
+        </div>
+        <div class=''>
+            This is graph
+        </div>
+        <div>
+            <p>Buying Power</p>
+            <p>$100,000</p>
+        </div>
+    </div>
+  
+    <div class='stockList-div'>
+        <h4>Buy {{companyData.ticker}}</h4>
+        <form actions='/trades/create' method='post'>
+            <label>
+               Market Price
+               
+       
+                {{quoteData.c}}
+            </label>
+            <label>
+                Shares:
+                <input type='number' name='sharesNumber' />
+            </label>
+        
+            <h4>Estimated Cost = </h4>
+      
+            <button type='submit'>Buy</button>
+            <p>Buying Power Available: </p>
+        
+        
+        </form>
+
+        <button onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
+
+    </div>
+</div>
