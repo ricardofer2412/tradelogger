@@ -1,6 +1,6 @@
 function calculatePrice() {
   console.log("Price Alert");
-  const marketPrice = document.querySelector("#marketPrice");
+  const marketPrice = document.querySelector("#marketPrice").innerText;
   console.log(marketPrice);
 }
 

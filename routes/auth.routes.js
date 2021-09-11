@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const User = require('../models/User.model')
-const Comment = require('../models/Comment.model')
-const Post = require('../models/Post.model')
-
+const User = require("../models/User.model");
+const Comment = require("../models/Comment.model");
+const Post = require("../models/Post.model");
+const Account = require("../models/Account.model");
 const bcrypt = require("bcryptjs");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
@@ -35,7 +35,6 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
             accountBalance: 100000,
             userId: userId,
           }).then((account) => {
-           
             return User.findByIdAndUpdate(userId, {
               accountId: account._id,
             }).then(() => {
@@ -78,22 +77,18 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 });
 
-router.get('/dashboard', isLoggedIn, (req, res, next)=>{
-    res.render('user/dashboard', {user: req.session.currentUser})
-})
+router.get("/dashboard", isLoggedIn, (req, res, next) => {
+  res.render("user/dashboard", { user: req.session.currentUser });
+});
 
-router.get('/logout', isLoggedIn, (req, res) => {
+router.get("/logout", isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
-  res.redirect('/');
- });
+  res.redirect("/");
+});
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
   res.render("user/profile", { userInSession: req.session.currentUser });
 });
-
-
-
-
 
 module.exports = router;
