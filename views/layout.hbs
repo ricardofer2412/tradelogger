@@ -21,12 +21,11 @@
           APP</strong></a></li>
       </ul>
 
-
-      {{#if userInSession}}
-      <div class="navbar-search">
-         <form action="/stock/quote">
-            Search Ticker:
-            <input type="text" name="symbol">
+         {{#if userInSession}}
+         <div class="navbar-search">
+            <form action="/stock/quote">
+           
+            <input type="text" placeholder=" Search ticker..." name="symbol">
             <button>Search</button>
          </form>
          <div class="div-login">
