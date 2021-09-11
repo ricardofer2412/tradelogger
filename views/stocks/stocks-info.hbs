@@ -37,13 +37,17 @@
         </form>
 
         <button onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
+
+        <div class='comments'>
+            <p>Here goes your comments!</p>
+        </div>
         
         <div class="comment-form">
             <h2>Create a new comment</h2>
-                <form action="/post-create" method="POST">
+                <form action="/stock/comments" method="post">
                     <textarea type="text" name="content"> </textarea>
-                <button type="submit"> Submit </button>
-            </form>
+                    <button type="submit"> Submit </button>
+                </form>
         </div>
 
 

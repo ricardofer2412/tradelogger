@@ -20,7 +20,7 @@ finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
         finnhubClient.stockCandles(stock, "D", 1590988249, 1591852249, (error, candleData, response) => {
             console.log(candleData)  
             res.render('stocks/stocks-info', {candleData, quoteData, companyData, stock});
-            
+     
           });
       
     })
@@ -28,35 +28,11 @@ finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
   
 })
 
-  
+router.post('/comments', (req, res) => {
+    console.log('successfully post', req.body.content)
+    res.redirect("back")
+})
 
-router.post('/post-create', isLoggedIn, (req, res, next) =>{
-    const {stock, content, author} = req.body;
-
-    Post.create({title,content,author})
-    .then(dbPost =>{
-        return User.findByIdAndUpdate(author, { $push:{ posts: dbPost._id } })
-    })
-    .then(()=>{
-        res.redirect(`/stock/quote?symbol=${stock}`);
-    })
-    .catch(err => {
-        console.log(`Err while creating the post in the DB: ${err}`);
-        next(err);
-    });
-  
-});
-
-router.get('/posts', (req, res, next) => {
-    Post.find()
-      .then(dbPosts => {
-        console.log('Posts from the DB: ', dbPosts);
-      })
-      .catch(err => {
-        console.log(`Err while getting the posts from the DB: ${err}`);
-        next(err);
-      });
-  });
 
 
 module.exports = router;
