@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/User.model')
 const Comment = require('../models/Comment.model')
 const Post = require('../models/Post.model')
-
+const Account = require('../models/Account.model')
 const bcrypt = require("bcryptjs");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 

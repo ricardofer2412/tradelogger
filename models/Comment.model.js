@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const commentSchema = new Schema({
-    tickerId: String,
+    tickerId: { type: String},
     authorId: {type: Schema.Types.ObjectId, ref: 'User'},
     content: String
    

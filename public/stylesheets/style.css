@@ -129,3 +129,27 @@ li {
   margin-right: 80px;
   font-weight: bold;
 }
+
+
+/* ........................ STOCKS-INFO.HBS.............................. */
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  width: 350px;
+  height: 300px;
+}
+
+.comment-div{
+  display:flex;
+
+  align-content: center;
+}
+
+.comment-div h2{
+  display: flex;
+  align-content: center;
+  width: 350px;
+} 

@@ -3,7 +3,7 @@
         <div>
             <img src={{companyData.logo}} alt="">
         <h2>{{companyData.name}}</h2>
-        <h3>{{quoteData.c}}</h3>
+        <h4>{{quoteData.c}}</h4>
         </div>
         <div class=''>
             This is graph
@@ -39,17 +39,29 @@
         <button onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
 
         <div class='comments'>
-            <p>Here goes your comments!</p>
-        </div>
-        
-        <div class="comment-form">
+            <h2>Comments:</h2>
+                {{#each commentFromDb}}   
+                    </div>
+                        <hr>
+                            <h4>{{this.content}}</h4>
+                        <hr>
+                    <div>
+                {{/each}}
+
+        <div class="comment-div">
             <h2>Create a new comment</h2>
-                <form action="/stock/comments" method="post">
-                    <textarea type="text" name="content"> </textarea>
-                    <button type="submit"> Submit </button>
-                </form>
+            <form class="comment-form" action="/stock/comments" method="post">
+               Ticker: <input type="text" name="ticker" value="{{companyData.ticker}}">
+               Comment: <textarea type="text" name="content"> </textarea>
+                <button type="submit"> Submit </button>
+            </form>
+        </div>
+            
+           
         </div>
 
 
     </div>
 </div>
+
+
