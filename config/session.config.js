@@ -22,7 +22,7 @@ module.exports = app =>{
                 sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
                 secure: process.env.NODE_ENV === 'production',
                 httpOnly: false,
-                maxAge: 60000
+                maxAge: 600000000
             },
             store: MongoStore.create({
                 mongoUrl: process.env.MONGODG_URI || 'mongodb://localhost/tradelogger'

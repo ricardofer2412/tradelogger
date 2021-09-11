@@ -35,6 +35,9 @@ const capitalized = (string) =>
 const userToLocals = require("./middleware/user-in-locals")
 app.use(userToLocals)
 
+const currentUrl = require("./middleware/current-url")
+app.use(currentUrl)
+
 // 👇 Start handling routes here
 const index = require("./routes/index");
 app.use("/", index);
@@ -48,7 +51,8 @@ app.use("/", authRoutes);
 const apiRoutes = require("./routes/api.routes")
 app.use("/stock", apiRoutes);
 
-
+const postRoutes = require("./routes/post.routes")
+app.use(`/post`, postRoutes);
 
 
 
