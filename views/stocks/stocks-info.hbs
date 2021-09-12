@@ -16,8 +16,11 @@
   
     <div class='stockList-div'>
         <h4>Buy {{companyData.ticker}}</h4>
-        <form action='/stock/quote/' method='POST'>
+        <form action='/stock/quote/{{companyData.ticker}}' method='POST'>
+            <h4 name='ticker' name='ticker' value={{companyData.ticker}}></h4>
             <label>
+                  
+
                Market Price
                 <input  type='number' id='marketPrice' name='entryPrice' value= {{quoteData.c}}> 
             </label>

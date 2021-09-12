@@ -30,6 +30,9 @@ const capitalized = (string) =>
 const userToLocals = require("./middleware/user-in-locals");
 app.use(userToLocals);
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // const getPrice = require("./public/js/stocksPrices");
 // app.use(getPrice);
 

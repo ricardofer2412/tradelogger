@@ -15,6 +15,7 @@ const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 //search for stock
 router.get("/quote", isLoggedIn, (req, res, next) => {
   const query = req.query.symbol;
+  console.log(req.query);
   const stock = query.toUpperCase();
   const user = req.session.currentUser._id;
   console.log(user);
@@ -47,7 +48,9 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
   });
 });
 
-router.post("/quote", isLoggedIn, (req, res, next) => {
+router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
+  const { ticker } = req.params;
+  console.log("this is qury", req.body.symbol);
   const { entryPrice, sharesNumber } = req.body;
   const userId = req.session.currentUser._id;
   const tradeValue = entryPrice * sharesNumber;
@@ -61,7 +64,9 @@ router.post("/quote", isLoggedIn, (req, res, next) => {
       tradeValue,
       userId,
       accountId,
-    }).then((tradePost) => {
+      ticker,
+    }).then((tradeToDB) => {
+      console.log(tradeToDB);
       return Account.updateOne(
         { userId: { $eq: userId } },
         { $set: { accountBalance: newAccountBalance } }
