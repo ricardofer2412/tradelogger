@@ -58,20 +58,38 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
   Account.find({ userId: { $eq: userId } }).then((account) => {
     const accountId = account[0]._id;
     const newAccountBalance = account[0].accountBalance - tradeValue;
-    Trade.create({
-      entryPrice,
-      sharesNumber,
-      tradeValue,
-      userId,
-      accountId,
-      ticker,
-    }).then((tradeToDB) => {
-      console.log(tradeToDB);
-      return Account.updateOne(
-        { userId: { $eq: userId } },
-        { $set: { accountBalance: newAccountBalance } }
-      );
-      console.log("Post to DB");
+
+    //Check if already own stocks
+
+    //If it does not own it create a new trade
+    Trade.findOne({ ticker: { $eq: ticker } }).then((trade) => {
+      if (!trade) {
+        console.log("Trade does not exits");
+        Trade.create({
+          entryPrice,
+          sharesNumber,
+          tradeValue,
+          userId,
+          accountId,
+          ticker,
+        }).then((tradeToDB) => {
+          console.log(tradeToDB);
+          return Account.updateOne(
+            { userId: { $eq: userId } },
+            { $set: { accountBalance: newAccountBalance } }
+          );
+          console.log("Post to DB");
+        });
+      } else {
+        console.log("Trade exits");
+        Trade.findOne({ ticker: { $eq: ticker } }).then((trade) => {
+          const newValue = trade.tradeValue + tradeValue;
+          return Trade.updateOne(
+            { ticker: { $eq: ticker } },
+            { $set: { sharesNumber: sharesNumber, tradeValue: newValue } }
+          );
+        });
+      }
     });
   });
   res.redirect("back");
