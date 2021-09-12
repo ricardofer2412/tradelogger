@@ -7,9 +7,10 @@ const tradeSchema = new Schema({
   exitPrice: Number,
   dateAdded: Date,
   dateExited: Date,
-  sharesBuy: Number,
-  sharesSell: Number,
+  sharesNumber: Number,
   userId: String,
+  accountId: String,
+  tradeValue: Number,
 });
 
 const Trade = model("Trade", tradeSchema);
