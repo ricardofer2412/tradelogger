@@ -16,24 +16,23 @@
   
     <div class='stockList-div'>
         <h4>Buy {{companyData.ticker}}</h4>
-        <form actions='/trades/create' method='post'>
+        <form action='/stock/quote/{{companyData.ticker}}' method='POST'>
+            <h4 name='ticker' name='ticker' value={{companyData.ticker}}></h4>
             <label>
+                  
+
                Market Price
-               
-            
-                <p id='marketPrice'> {{quoteData.c}} </p>
+                <input  type='number' id='marketPrice' name='entryPrice' value= {{quoteData.c}}> 
             </label>
             <label>
                 Shares:
-                <input type='number' id:'sharesNumber' name='sharesNumber' />
+                <input type='number' id='sharesNumber' name='sharesNumber' value='0' />
             </label>
-        
-            <h4>Estimated Cost = </h4>
-      
-            <button type='submit'>Buy</button>
-            <p>Buying Power Available: </p>
-        
-        
+            <h4>Estimated Cost</h4>
+            <h2 id='estimateValue' name='tradeValue'>$0</h2>
+            <button type='submit'>Buy Now</button>
+            <p>Buying Power Available: ${{accountMoney}} </p>
+
         </form>
 
         <button onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
