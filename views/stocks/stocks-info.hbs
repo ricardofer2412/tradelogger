@@ -1,16 +1,15 @@
-<div>
+<div class='main'>
     <div class='graph'>
         <div>
             <img src={{companyData.logo}} alt="">
         <h2>{{companyData.name}}</h2>
-        <h3>{{quoteData.c}}</h3>
+        <h5>{{quoteData.c}}({{quoteData.dp}}%) Today</h5>
         </div>
         <div class=''>
             This is graph
         </div>
         <div>
-            <p>Buying Power</p>
-            <p>$100,000</p>
+            
         </div>
     </div>
   
@@ -30,7 +29,7 @@
             </label>
             <h4>Estimated Cost</h4>
             <h2 id='estimateValue' name='tradeValue'>$0</h2>
-            <button type='submit'>Buy Now</button>
+            <button type='submit'>Buy</button>
             <p>Buying Power Available: ${{accountMoney}} </p>
 
         </form>

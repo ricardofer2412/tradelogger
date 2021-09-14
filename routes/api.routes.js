@@ -21,15 +21,18 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
   console.log(user);
 
   finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
+    console.log(quoteData);
     finnhubClient.companyProfile2(
       { symbol: stock },
       (error, companyData, response) => {
+        console.log(companyData);
         finnhubClient.stockCandles(
           stock,
           "D",
           1590988249,
           1591852249,
           (error, candleData, response) => {
+            console.log(candleData);
             Account.find({ userId: { $eq: user } }).then((account) => {
               const accountMoney = account[0].accountBalance;
               console.log("Balance on Account: ", accountMoney);
@@ -48,6 +51,7 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
   });
 });
 
+//fix different account stock buying
 router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
   const { ticker } = req.params;
   console.log("this is qury", req.body.symbol);
