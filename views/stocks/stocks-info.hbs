@@ -1,8 +1,11 @@
-<div>
-    <div class='graph'>
-        <div>
-            <img src={{companyData.logo}} alt="">
-        <h2>{{companyData.name}}</h2>
+<div class='main'>
+    <div class='stock-price-info'>
+        <div class='company'>
+         <img class='logo' src={{companyData.logo}} alt="">
+          <h2>{{companyData.name}}</h2>
+        </div>
+       
+       <div>
         <h3>{{quoteData.c}}</h3>
         </div>
         <div class=''>
@@ -12,38 +15,46 @@
             <p>Buying Power</p>
             <p>$100,000</p>
         </div>
-    </div>
-  
-    <div class='stockList-div'>
-        <h4>Buy {{companyData.ticker}}</h4>
-        <form action='/stock/quote/{{companyData.ticker}}' method='POST'>
-            <h4 name='ticker' name='ticker' value={{companyData.ticker}}></h4>
-            <label>
-                  
-
-               Market Price
-                <input  type='number' id='marketPrice' name='entryPrice' value= {{quoteData.c}}> 
-            </label>
-            <label>
-                Shares:
-                <input type='number' id='sharesNumber' name='sharesNumber' value='0' />
-            </label>
-            <h4>Estimated Cost</h4>
-            <h2 id='estimateValue' name='tradeValue'>$0</h2>
-            <button type='submit'>Buy Now</button>
-            <p>Buying Power Available: ${{accountMoney}} </p>
-
-        </form>
-
-        <button onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
-        
-        <div class="comment-form">
+           <div class="comment-form">
             <h2>Create a new comment</h2>
                 <form action="/post-create" method="POST">
                     <textarea type="text" name="content"> </textarea>
                 <button type="submit"> Submit </button>
             </form>
         </div>
+    </div>
+  
+    <div class='stock-buy-div'>
+        <div class='buy-div'>
+            <div class='ticker'>
+            <h4>Buy {{companyData.ticker}}</h4>
+            </div>
+        <form action='/stock/quote/{{companyData.ticker}}' method='POST'>
+        <div class='buy-form'>
+           
+            <label class="form-label">
+               Market Price
+            </label>
+             <input  class="form-control" type='number' id='marketPrice' name='entryPrice' value= {{quoteData.c}}> 
+       
+            <label class="form-label">
+                Shares:
+            </label>
+                <input class="form-control" type='number' id='sharesNumber' name='sharesNumber' value='0' />
+            <h4>Estimated Cost</h4>
+            <h2 id='estimateValue' name='tradeValue'>$0</h2>
+            <button class="btn btn-success" id='buy-button' type='submit'>Buy </button>
+           
+             </div>  
+        </form>
+        <div class='button-div'> 
+        <button class="btn btn-secondary" onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
+         <p class='buying-text'>Buying Power Available: ${{accountMoney}} </p>
+        </div>
+
+        </div>
+        
+     
 
 
     </div>
