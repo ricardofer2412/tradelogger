@@ -33,6 +33,7 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
               const accountMoney = account[0].accountBalance;
               console.log("Balance on Account: ", accountMoney);
+              console.log(quoteData)
               res.render("stocks/stocks-info", {
                 candleData,
                 quoteData,
