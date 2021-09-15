@@ -26,4 +26,22 @@ console.log(data)
 
 });
 
+router.get("/forex", isLoggedIn,(req, res, next) => {
+    
+  finnhubClient.marketNews("forex", {}, (error, data, response) => {
+console.log(data)
+    res.render("news/forex", {news: data})
+  });
+
+});
+
+router.get("/merger", isLoggedIn,(req, res, next) => {
+    
+  finnhubClient.marketNews("merger", {}, (error, data, response) => {
+console.log(data)
+    res.render("news/merger", {news: data})
+  });
+
+});
+
 module.exports =  router;
