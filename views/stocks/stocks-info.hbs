@@ -8,10 +8,11 @@
        <div>
         <h3>${{quoteData.c}}</h3>
         <p>${{quoteData.d}} ({{quoteData.dp}}%) Today</p>
-         <p></p>
+         <p></p>    
         </div>
         <div class=''>
-            This is graph
+                <canvas id="myChart" width="300" height="300"></canvas>
+                <button onclick="getGraph()">Get Graph</button>
         </div>
         <div>
             <div>
