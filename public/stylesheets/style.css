@@ -1,6 +1,9 @@
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+ 
+  
 }
 
 a {
@@ -87,7 +90,7 @@ h1 {
 /* ........................ LAYOUT.HBS.............................. */
 
 .navbar {
-  background-color: white;
+  background-color:white;
   padding: 0px;
   margin: 0px;
 }
@@ -128,4 +131,12 @@ li {
   font-size: 24px;
   margin-right: 80px;
   font-weight: bold;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+padding-left: 200px;
+padding-right: 200px;
+padding-top: 30px;
 }

@@ -15,27 +15,21 @@ const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 //search for stock
 router.get("/quote", isLoggedIn, (req, res, next) => {
   const query = req.query.symbol;
-  console.log(req.query);
   const stock = query.toUpperCase();
   const user = req.session.currentUser._id;
-  console.log(user);
 
   finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
-    console.log(quoteData);
     finnhubClient.companyProfile2(
       { symbol: stock },
       (error, companyData, response) => {
-        console.log(companyData);
         finnhubClient.stockCandles(
           stock,
           "D",
           1590988249,
           1591852249,
           (error, candleData, response) => {
-            console.log(candleData);
             Account.find({ userId: { $eq: user } }).then((account) => {
               const accountMoney = account[0].accountBalance;
-              console.log("Balance on Account: ", accountMoney);
               res.render("stocks/stocks-info", {
                 candleData,
                 quoteData,
@@ -54,7 +48,6 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
 //fix different account stock buying
 router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
   const { ticker } = req.params;
-  console.log("this is qury", req.body.symbol);
   const { entryPrice, sharesNumber } = req.body;
   const userId = req.session.currentUser._id;
   const tradeValue = entryPrice * sharesNumber;
@@ -63,10 +56,15 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
     const accountId = account[0]._id;
     const newAccountBalance = account[0].accountBalance - tradeValue;
 
+    console.log("Account ID", accountId);
     //Check if already own stocks
 
     //If it does not own it create a new trade
-    Trade.findOne({ ticker: { $eq: ticker } }).then((trade) => {
+    Trade.findOne({
+      ticker: { $eq: ticker },
+      accountId: { $eq: accountId },
+    }).then((trade) => {
+      console.log(trade);
       if (!trade) {
         console.log("Trade does not exits");
         Trade.create({
@@ -86,33 +84,23 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
         });
       } else {
         console.log("Trade exits");
-        Trade.findOne({ ticker: { $eq: ticker } }).then((trade) => {
-          const newValue = trade.tradeValue + tradeValue;
+
+        Trade.findOne({
+          accountId: accountId,
+          ticker: ticker,
+        }).then((trade) => {
+          console.log(trade);
+          const newShares = Number(trade.sharesNumber) + Number(sharesNumber);
+          const newValue = Number(trade.tradeValue) + Number(tradeValue);
           return Trade.updateOne(
-            { ticker: { $eq: ticker } },
-            { $set: { sharesNumber: sharesNumber, tradeValue: newValue } }
+            { accountId: accountId, ticker: ticker },
+            { $set: { sharesNumber: newShares, tradeValue: newValue } }
           );
         });
       }
     });
   });
   res.redirect("back");
-});
-
-router.post("/post-create", isLoggedIn, (req, res, next) => {
-  const { stock, content, author } = req.body;
-
-  Post.create({ title, content, author })
-    .then((dbPost) => {
-      return User.findByIdAndUpdate(author, { $push: { posts: dbPost._id } });
-    })
-    .then(() => {
-      res.redirect(`/stock/quote?symbol=${stock}`);
-    })
-    .catch((err) => {
-      console.log(`Err while creating the post in the DB: ${err}`);
-      next(err);
-    });
 });
 
 router.get("/posts", (req, res, next) => {
