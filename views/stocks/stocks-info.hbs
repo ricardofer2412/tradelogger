@@ -8,10 +8,11 @@
        <div>
         <h3>${{quoteData.c}}</h3>
         <p>${{quoteData.d}} ({{quoteData.dp}}%) Today</p>
-         <p></p>
+         <p></p>    
         </div>
         <div class=''>
-            This is graph
+                <canvas id="myChart" width="400" height="250"></canvas>
+             
         </div>
         <div>
             <div>
@@ -32,7 +33,7 @@
     <div class='stock-buy-div'>
         <div class='buy-div'>
             <div class='ticker'>
-            <h4>Buy {{companyData.ticker}}</h4>
+            <h4 id='ticker'>{{companyData.ticker}}</h4>
             </div>
         <form action='/stock/quote/{{companyData.ticker}}' method='POST'>
         <div class='buy-form'>
