@@ -33,7 +33,7 @@
     <div class='stock-buy-div'>
         <div class='buy-div'>
             <div class='ticker'>
-            <h4>Buy {{companyData.ticker}}</h4>
+            <h4 id='ticker'>{{companyData.ticker}}</h4>
             </div>
         <form action='/stock/quote/{{companyData.ticker}}' method='POST'>
         <div class='buy-form'>
