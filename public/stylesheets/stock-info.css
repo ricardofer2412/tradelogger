@@ -13,8 +13,6 @@
 
     width: 35%;
     padding: 20px;
-    
-  
 
 }
 
@@ -69,4 +67,13 @@
     width: 40px;
     height: 40px;
     margin-right: 10px;
+}
+
+.buying-power {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buying {
+    font-weight: 700;
 }
