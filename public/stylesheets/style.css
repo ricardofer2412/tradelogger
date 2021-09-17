@@ -142,3 +142,27 @@ li {
   padding-right: 200px;
   padding-top: 30px;
 }
+
+/* ........................ NAV BAR 2.............................. */
+.navbar2 {
+  height: 42px;
+  background-color: black;
+  margin: 0em;
+}
+
+.li-navbar2 {
+  font-size: 25px;
+  float: left;
+  padding: 0px 50px;
+  margin-top: 0em;
+  margin-right: 80px;
+  margin-left: 8rem;
+  text-align: center;
+  line-height: 42px;
+  height: 42px;
+}
+
+.li-navbar2:hover {
+  background-color: rgb(157, 157, 157);
+  border-radius: 6px;
+}
