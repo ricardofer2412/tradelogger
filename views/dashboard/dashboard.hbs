@@ -1,20 +1,73 @@
-<div> 
-    <div class='graph'> 
-        <div> 
-            $100,000
+<div class='main'>
+     <div class='stock-price-info'>
+        <div class='accountBalance'>
+             <h2>${{accountInfo.accountBalance}}</h2>
         </div>
     <div class=''>
-        This is graph
+             <canvas id="myChart" width="400" height="250"></canvas>
+    </div>
+    <hr>
+    <div class='buying-power'>
+ <div>
+        <p class='buying'>Buying Power</p>
     </div>
     <div>
-        <p>Buying Power</p>
-        <p>$100,000</p>
+       <p class='buying'>${{accountInfo.accountBalance}}</p>
     </div>
     </div>
-    <div class='news-div'> 
-        NEWS 
+      <hr>
+    <div> 
+        <div>
+            <h3>News</h3>
+            {{#each news}}
+            <div>
+                <div>
+                <p class='buying'>{{source}}</p>
+                </div>
+                 <div>
+                     <div>
+                        <p>{{summary}}</p>
+                     </div>
+                 
+                     <div>
+                         <img src={{image}} alt="" width="200px" height="100px">
+                     </div>
+                 </div>
+
+                <hr>
+            </div>
+               
+            {{/each}}
+        </div>
     </div>
-    <div class='stockList-div'>
-        
     </div>
+    <div class='stock-buy-div'>
+          <div class='buy-div'>
+             <h3>Stocks</h3>
+     
+            <li id='ticker'>TSLA</li>
+            <li>AAPL</li>
+              <li>TSLA</li>
+            <li>AAPL</li>
+              <li>TSLA</li>
+            <li>AAPL</li>
+   <hr>
+     <h3>Watch List</h3>
+     
+            <li id='ticker'>TSLA</li>
+            <li>AAPL</li>
+              <li>TSLA</li>
+            <li>AAPL</li>
+              <li>TSLA</li>
+            <li>AAPL</li>
+    </div>
+  
+    
+           
+
+    
+    </div>
+    
+
+ 
 </div>

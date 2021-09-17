@@ -13,12 +13,12 @@
 
     width: 35%;
     padding: 20px;
-  
 
 }
 
 .buy-div{
-    margin-top: 40px;
+    margin-top: 100px;
+    margin-left: 50px;
     border: 2px solid rgb(227,233,237);
     border-radius: 5px;
       background-color: white;
@@ -67,4 +67,13 @@
     width: 40px;
     height: 40px;
     margin-right: 10px;
+}
+
+.buying-power {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buying {
+    font-weight: 700;
 }

@@ -4,7 +4,12 @@
          <img class='logo' src={{companyData.logo}} alt="">
           <h2>{{companyData.name}}</h2>
         </div>
-       
+        <div>
+            {{#if errorMessage}}
+            <p>Error</p>
+            <p class="error">{{errorMessage}}</p>
+            {{/if}}
+        </div>
        <div>
         <h3>${{quoteData.c}}</h3>
         <p>${{quoteData.d}} ({{quoteData.dp}}%) Today</p>
@@ -17,8 +22,8 @@
         <div>
             <div>
                 
-               <p>Shares: {{trade.sharesNumber}}</p> 
-               <p>Cost: {{tradeValue}}</p>
+               <p>Shares: {{stockTrade.sharesNumber}}</p> 
+               <p>Cost: {{stockTrade.tradeValue}}</p>
             </div>
         </div>
            <div class="comment-form">
@@ -33,9 +38,9 @@
     <div class='stock-buy-div'>
         <div class='buy-div'>
             <div class='ticker'>
-            <h4>Buy {{companyData.ticker}}</h4>
+            <h4 id='ticker'>{{companyData.ticker}}</h4>
             </div>
-        <form action='/stock/quote/{{companyData.ticker}}' method='POST'>
+        <form method='POST'>
         <div class='buy-form'>
            
             <label class="form-label">
@@ -49,10 +54,20 @@
                 <input class="form-control" type='number' id='sharesNumber' name='sharesNumber' value='0' />
             <h4>Estimated Cost</h4>
             <h2 id='estimateValue' name='tradeValue'>$0</h2>
-            <button class="btn btn-success" id='buy-button' type='submit'>Buy </button>
-           
+            <div class='button-div'>
+
+                <button class="btn btn-success" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}">Buy </button>
+            </div>
+            <form action='/stock/quote/{{companyData.ticker}}/sell' method='POST'>
+                <div class='button-div'>
+                    <button class="btn btn-danger" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}/sell">Sell </button>
+                </div>
+               
+            </form>
+     
              </div>  
-        </form>
+        </form> 
+       
         <div class='button-div'> 
         <button class="btn btn-secondary" onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
          <p class='buying-text'>Buying Power Available: ${{accountMoney}} </p>
