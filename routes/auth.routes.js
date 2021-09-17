@@ -13,7 +13,7 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 
 router.post("/signup", isLoggedOut, (req, res, next) => {
   const { firstName, lastName, email, username, password } = req.body;
-
+  console.log(firstName, lastName, email);
   if (!firstName || !lastName || !email || !username || !password) {
     res.render("user/signup", {
       errorMessage: "Please fill out all required fields",
