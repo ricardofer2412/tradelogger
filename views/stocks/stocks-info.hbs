@@ -21,32 +21,31 @@
                <p>Cost: {{stockTrade.tradeValue}}</p>
             </div>
         </div>
-           <div class="comment-form">
-             
-            <h2 name='ticker'>Comments:</h2>
-                {{#each commentFromDb}}   
-                    </div>
-                        <hr>
-                            <h4>{{this.content}}</h4>
-                            <a href="{{this._id}}/update">Update</a>
-                            <form action="{{this._id}}/delete" method="post">
-                            <button>Delete</button>
-                            </form>
 
-                          
-                        <hr>
-                    <div>
-                {{/each}}
-
-            <div class="comment-div">
-                <h2>Create a new comment</h2>
-                <form class="comment-form" action="/stock/comments" method="post">
-                Ticker: <input type="text" name="ticker" value="{{companyData.ticker}}">
-                Comment: <textarea type="text" name="content"> </textarea>
-                    <button type="submit"> Submit </button>
-                </form>
-            </div>
-        </div>
+           <div class="comment-form"> 
+               
+                <div class="create-comment-div">
+                    <h2>Create a new comment</h2>
+                    <form class="comment-form" action="/stock/comments" method="post">
+                        Ticker: <input type="text" name="ticker" value="{{companyData.ticker}}">
+                        Comment: <textarea type="text" name="content"> </textarea>
+                        <button type="submit"> Submit </button>
+                    </form>
+                </div>
+               <div class="show-comment-div">
+                   <h2 name='ticker'>Comments:</h2>
+                    {{#each commentFromDb}}   
+                            <hr>
+                                <h4>{{this.content}}</h4>
+                                <a href="{{this._id}}/update">Update</a>
+                                <form action="{{this._id}}/delete" method="post">
+                                <button>Delete</button>
+                                </form>
+                            <hr>
+                    {{/each}} 
+               </div>
+                
+           </div>
     </div>
   
     <div class='stock-buy-div'>
@@ -68,18 +67,18 @@
                 <input class="form-control" type='number' id='sharesNumber' name='sharesNumber' value='0' />
             <h4>Estimated Cost</h4>
             <h2 id='estimateValue' name='tradeValue'>$0</h2>
-            <div class='button-div'>
-
-        <button onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
-
+        </form>
+            {{!-- <form class='button-div'> --}}
+                <button onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
+            
         <div class='comments'>
            
             <form action='/stock/quote/{{companyData.ticker}}/sell' method='POST'>
-                <div class='button-div'>
-                    <button class="btn btn-danger" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}/sell">Sell </button>
-                </div>
                 <div>
                     <button class="btn btn-success" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}">Buy </button>
+                </div>
+                <div class='button-div'>
+                    <button class="btn btn-danger" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}/sell">Sell </button>
                 </div>
             </form>
             
