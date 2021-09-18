@@ -68,20 +68,18 @@ router.post('/comments', (req, res) => {
     }).catch((error) => {console.log(error)})
 })
 
-router.post('/delete-comment', (req, res) => {
-   
-    const {ticker, content} = req.body;
-
-    Comment.find({ticker}).then((comment) => {
-      const userId = req.session.currentUser._id;
-      const authorId = comment[0].authorId;
-      const commentId = comment[0].id;
-      if(authorId == req.session.currentUser._id) {
-        Comment.findByIdAndDelete(commentId).then((comment) => {
-          res.redirect("back")
-        })
+router.post('/:commentId/delete', (req, res) => {
+    const {commentId} = req.params;
+    
+    Comment.findById(commentId).then((comment) => {
+      const authorId = comment.authorId;
+      
+      if(authorId == req.session.currentUser._id){ 
+        Comment.findByIdAndDelete(commentId)
+         .then(() => res.redirect('back'))
+        .catch(error => next(error));
       }else if(authorId != req.session.currentUser._id){
-        res.redirect("back")
+        res.redirect('back')
       }
     })
 })
