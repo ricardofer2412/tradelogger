@@ -73,8 +73,9 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
 
 
 ////////////////////////////////////////////////////////////////***create a comment****///////////////////////////////////////////
-router.post('/comments', (req, res) => {
-    const {ticker, content} = req.body;
+router.post('/comments/:ticker', (req, res) => {
+    const {ticker} = req.params
+    const {content} = req.body;
     const userId = req.session.currentUser._id;
     
     Comment.create({tickerId: ticker, content, authorId: userId})
@@ -99,6 +100,7 @@ router.post('/:commentId/delete', (req, res) => {
     })
 })
 
+/////////////////////////////////////////////////////////UPDATE COMMENT/////////////////////////////////////////
 router.get("/:commentId/update", (req, res) => {
   const {commentId} = req.params;
   Comment.findById(commentId)
@@ -126,6 +128,7 @@ router.post('/:commentId/update', (req, res)=>{
         res.redirect(`../quote?symbol=${ticker}`)
 })
 });
+
 
 
 //fix different account stock buying
