@@ -7,13 +7,12 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>{{title}}</title>
-    <link rel="stylesheet" href="/stylesheets/stock-info.css" />
+   <link rel="stylesheet" href="/stylesheets/signin.css">
+   <link rel="stylesheet" href="/stylesheets/stock-info.css" />
    <link rel="stylesheet" href="/stylesheets/style.css" />
    <link rel="stylesheet" href="/stylesheets/stockInfo.css" />
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
-      integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
    </head>
    
    <body>
@@ -29,37 +28,45 @@
 
 <body id='main'>
 
-   <nav class="navbar">
+   <nav class="navbar-div-nav">
+   <div class="navbar-div">
 
-      <ul>
-         <li class="navbar-brand"><a style="text-decoration: none;" class="trading-app" href="/"><strong>TRADING
-          APP</strong></a></li>
-      </ul>
+   <div class='img-div'>
+   <a class="navbar-brand" href="#">
+   <img src="/images/logo.png" width="200" height="50" alt="">
+      </a>
+   </div>
+{{#if userInSession}}
+<div class="navbar-search">
+   <form action="/stock/quote">
+   <div class='searchForm'>
+      <input type="text" placeholder=" Search ticker..." name="symbol" class="form-control">
+    
 
-         {{#if userInSession}}
-         <div class="navbar-search">
-            <form action="/stock/quote">
-           
-            <input type="text" placeholder=" Search ticker..." name="symbol">
-            <button>Search</button>
-         </form>
+   <button type="submit" class="btn btn-primary" ><i class="material-icons">search</i>Search</button>
+   </div>
+    
+   </form>
+   <div class="div-login">
+      <a style="text-decoration: none;" href="/logout" class="a-login">Logout</a>
+   </div>
 
-         <div class="div-login">
-            <a style="text-decoration: none;" href="/logout" class="a-login">Log Out</a>
-         </div>
-
-         {{else}}
-         <div class="div-login">
-            <a style="text-decoration: none;" href="/login" class="a-login">Log In</a>
-         </div>
-         {{/if}}
-      </div>
-
-
+   {{else}}
+   <div class="div-login">
+      <a style="text-decoration: none;" href="/login" class="a-login">Log In</a>
+   </div>
+   {{/if}}
+</div>
+</div>   
    </nav>
+
    <div class='body'>
          {{{body}}}
    </div>
+   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+      integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
    <script type="text/javascript" src="/js/stocksPrices.js"></script>
    <script src="/js/getGraph.js"></script>

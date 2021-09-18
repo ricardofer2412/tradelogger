@@ -8,13 +8,22 @@
 </nav>
 
 <hr>
-<h2>This Is News</h2>
+<h2>This Is Stocks</h2>
 <hr>
 {{#each news}}
+<div>
+    <div>    
+     <h4>{{headline}}</h4>
+    </div>
+     <div>
+      <p>{{summary}}...<a href={{url}}>read more</a></p>
+     </div>
 
-    <h4>{{headline}}</h4>
-    <p>{{summary}}...<a href={{url}}>read more</a></p>
-    <img src={{image}} alt="">
+   <div>
+       <img src={{image}} alt="" width="200px" height="100px">
+     </div>
+
     <hr>
+</div>
 
 {{/each}}

@@ -1,3 +1,5 @@
+/* main color 17A021 */
+
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -94,24 +96,35 @@ hr.solid {
 
 .navbar {
   background-color: white;
-  padding: 0px;
+  padding: 20px;
   margin: 0px;
 }
 
 .navbar-search {
   display: flex;
-  flex-direction: row;
 }
-.navbar-search form {
-  padding-right: 30px;
+
+.navbar-div {
+  padding: 60px;
+  display: flex;
+}
+
+div.img-div {
+  width: 250px;
+  padding: 0em;
+  margin: 0em;
 }
 
 .navbar-search form button {
-  background-color: black;
+  background-color: #17a021;
   color: white;
   height: 40px;
   box-shadow: 0;
   border-radius: 4px;
+}
+.searchForm {
+  display: flex;
+  margin-right: 30px;
 }
 
 ul {
@@ -162,7 +175,6 @@ li {
   line-height: 42px;
   height: 42px;
 }
-
 .li-navbar2:hover {
   background-color: rgb(157, 157, 157);
   border-radius: 6px;

@@ -30,12 +30,21 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
           (error, candleData, response) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
               const accountMoney = account[0].accountBalance;
-              res.render("stocks/stocks-info", {
-                candleData,
-                quoteData,
-                companyData,
-                stock,
-                accountMoney,
+              const accountId = account[0]._id;
+              Trade.find({
+                ticker: { $eq: stock },
+                accountId: { $eq: accountId },
+              }).then((trade) => {
+                const stockTrade = trade[0];
+
+                res.render("stocks/stocks-info", {
+                  candleData,
+                  quoteData,
+                  companyData,
+                  stock,
+                  accountMoney,
+                  stockTrade,
+                });
               });
             });
           }
@@ -114,6 +123,33 @@ router.get("/posts", (req, res, next) => {
     });
 });
 
+router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
+  const { ticker } = req.params;
+  const { entryPrice, sharesNumber } = req.body;
+  const userId = req.session.currentUser._id;
+  const tradeValue = entryPrice * sharesNumber;
 
-
+  Account.find({ userId: { $eq: userId } }).then((account) => {
+    const accountId = account[0]._id;
+    Trade.findOne({
+      ticker: { $eq: ticker },
+      accountId: { $eq: accountId },
+    }).then((trade) => {
+      console.log(trade);
+      if (sharesNumber > trade.sharesNumber) {
+        res.setHeader("Content-Type", "text/plain");
+        res.render("stocks/stocks-info", { errorMessage: "error" });
+        return;
+      } else {
+        console.log("error message goes here! ");
+        const newShares = trade.sharesNumber - sharesNumber;
+        return Trade.updateOne(
+          { accountId: accountId, ticker: ticker },
+          { $set: { sharesNumber: newShares } }
+        );
+      }
+    });
+    res.redirect("back");
+  });
+});
 module.exports = router;
