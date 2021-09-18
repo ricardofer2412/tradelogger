@@ -1,0 +1,26 @@
+<nav class="navbar2">
+<ul class="ul-navbar2">
+    <li class="li-navbar2"><a style="text-decoration: none; color:white" href="../news">Stocks</a></li>
+    <li class="li-navbar2"><a style="text-decoration: none; color:white" href="../news/merger">Merger</a></li>
+    <li class="li-navbar2"><a style="text-decoration: none; color:white" href="../news/forex">Forex</a></li>
+</ul>
+</nav>
+<hr>
+<h2>This Is Crypto News</h2>
+<hr>
+{{#each news}}
+<div>
+    <div>    
+     <h4>{{headline}}</h4>
+    </div>
+     <div>
+      <p>{{summary}}...<a href={{url}}>read more</a></p>
+     </div>
+
+   <div>
+       <img src={{image}} alt="" width="200px" height="100px">
+     </div>
+
+    <hr>
+</div>
+{{/each}}
