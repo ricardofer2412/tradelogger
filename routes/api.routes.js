@@ -31,10 +31,16 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
               const accountMoney = account[0].accountBalance;
               const accountId = account[0]._id;
+              const accountInfo = account[0];
               Trade.find({
                 ticker: { $eq: stock },
                 accountId: { $eq: accountId },
               }).then((trade) => {
+                let sumBalance = 0;
+                for (let i = 0; i < trade.lenght; i++) {
+                  console.log(trade.tradeValue);
+                }
+
                 const stockTrade = trade[0];
 
                 res.render("stocks/stocks-info", {
@@ -44,7 +50,7 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
                   stock,
                   accountMoney,
                   stockTrade,
-                  account,
+                  accountInfo,
                 });
               });
             });
@@ -88,7 +94,7 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
           console.log(tradeToDB);
           return Account.updateOne(
             { userId: { $eq: userId } },
-            { $set: { buyingPower: newAccountBalance } }
+            { $set: { buyingPower: newAccountBalance.toFixed(2) } }
           );
           console.log("Post to DB");
         });
@@ -105,13 +111,18 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
             const newValue = Number(trade.tradeValue) + Number(tradeValue);
             return Trade.updateOne(
               { accountId: accountId, ticker: ticker },
-              { $set: { sharesNumber: newShares, tradeValue: newValue } }
+              {
+                $set: {
+                  sharesNumber: newShares,
+                  tradeValue: newValue.toFixed(2),
+                },
+              }
             );
           })
           .then(() => {
             return Account.updateOne(
               { userId: { $eq: userId } },
-              { $set: { buyingPower: newAccountBalance } }
+              { $set: { buyingPower: newAccountBalance.toFixed(2) } }
             );
           });
       }
@@ -138,25 +149,42 @@ router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
   const tradeValue = entryPrice * sharesNumber;
 
   Account.find({ userId: { $eq: userId } }).then((account) => {
+    const newAccountBalance = account[0].buyingPower + tradeValue;
     const accountId = account[0]._id;
     Trade.findOne({
       ticker: { $eq: ticker },
       accountId: { $eq: accountId },
-    }).then((trade) => {
-      console.log(trade);
-      if (sharesNumber > trade.sharesNumber) {
-        res.setHeader("Content-Type", "text/plain");
-        res.render("stocks/stocks-info", { errorMessage: "error" });
-        return;
-      } else {
-        console.log("error message goes here! ");
-        const newShares = trade.sharesNumber - sharesNumber;
-        return Trade.updateOne(
-          { accountId: accountId, ticker: ticker },
-          { $set: { sharesNumber: newShares } }
+    })
+      .then((trade) => {
+        const tradeId = trade._id;
+        console.log(trade);
+        if (sharesNumber > trade.sharesNumber) {
+          res.setHeader("Content-Type", "text/plain");
+          res.render("stocks/stocks-info", { errorMessage: "error" });
+          return;
+        } else if (sharesNumber == trade.sharesNumber) {
+          console.log("shares are equal");
+          Trade.deleteMany({ _id: tradeId }).then(() => {
+            return Account.updateOne(
+              { userId: { $eq: userId } },
+              { $set: { buyingPower: newAccountBalance.toFixed(2) } }
+            );
+          });
+        } else {
+          const newShares = trade.sharesNumber - sharesNumber;
+          Account.find({ userId: { $eq: userId } });
+          return Trade.updateOne(
+            { accountId: accountId, ticker: ticker },
+            { $set: { sharesNumber: newShares } }
+          );
+        }
+      })
+      .then(() => {
+        return Account.updateOne(
+          { userId: { $eq: userId } },
+          { $set: { buyingPower: newAccountBalance.toFixed(2) } }
         );
-      }
-    });
+      });
     res.redirect("back");
   });
 });
