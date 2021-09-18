@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const accountSchema = new Schema({
   accountBalance: Number,
+  buyingPower: Number,
   userId: { type: Schema.Types.ObjectId, ref: "User" },
   accountStocks: [{ ticker: String, sharesNumber: Number }],
 });

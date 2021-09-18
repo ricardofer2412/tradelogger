@@ -32,11 +32,22 @@
    <div class="navbar-div">
 
    <div class='img-div'>
-   <a class="navbar-brand" href="#">
+   <a class="navbar-brand" href="/dashboard">
    <img src="/images/logo.png" width="200" height="50" alt="">
       </a>
    </div>
 {{#if userInSession}}
+{{!-- <div class="collapse navbar-collapse" id="navbarNav"> --}}
+<div class='nav-menu'>
+
+   
+         <a class="nav-link-text" href="#">News</a>
+     
+         <a class="nav-link-text" href="#">Portfolio</a>
+ 
+  
+
+</div>
 <div class="navbar-search">
    <form action="/stock/quote">
    <div class='searchForm'>

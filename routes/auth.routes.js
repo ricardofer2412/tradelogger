@@ -32,6 +32,7 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
         }).then((createdUser) => {
           const userId = createdUser._id;
           Account.create({
+            buyingPower: 100000,
             accountBalance: 100000,
             userId: userId,
           }).then((account) => {
