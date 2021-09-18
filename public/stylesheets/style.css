@@ -150,3 +150,15 @@ li {
 .div-login {
   margin-right: 10px;
 }
+
+.nav-menu {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-around;
+  color: black;
+}
+
+.nav-link-text {
+  color: black;
+  font-weight: 700;
+}

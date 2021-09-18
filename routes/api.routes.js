@@ -44,6 +44,7 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
                   stock,
                   accountMoney,
                   stockTrade,
+                  account,
                 });
               });
             });
@@ -63,7 +64,7 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
 
   Account.find({ userId: { $eq: userId } }).then((account) => {
     const accountId = account[0]._id;
-    const newAccountBalance = account[0].accountBalance - tradeValue;
+    const newAccountBalance = account[0].buyingPower - tradeValue;
 
     console.log("Account ID", accountId);
     //Check if already own stocks
@@ -87,7 +88,7 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
           console.log(tradeToDB);
           return Account.updateOne(
             { userId: { $eq: userId } },
-            { $set: { accountBalance: newAccountBalance } }
+            { $set: { buyingPower: newAccountBalance } }
           );
           console.log("Post to DB");
         });
@@ -97,15 +98,22 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
         Trade.findOne({
           accountId: accountId,
           ticker: ticker,
-        }).then((trade) => {
-          console.log(trade);
-          const newShares = Number(trade.sharesNumber) + Number(sharesNumber);
-          const newValue = Number(trade.tradeValue) + Number(tradeValue);
-          return Trade.updateOne(
-            { accountId: accountId, ticker: ticker },
-            { $set: { sharesNumber: newShares, tradeValue: newValue } }
-          );
-        });
+        })
+          .then((trade) => {
+            console.log(trade);
+            const newShares = Number(trade.sharesNumber) + Number(sharesNumber);
+            const newValue = Number(trade.tradeValue) + Number(tradeValue);
+            return Trade.updateOne(
+              { accountId: accountId, ticker: ticker },
+              { $set: { sharesNumber: newShares, tradeValue: newValue } }
+            );
+          })
+          .then(() => {
+            return Account.updateOne(
+              { userId: { $eq: userId } },
+              { $set: { buyingPower: newAccountBalance } }
+            );
+          });
       }
     });
   });
