@@ -3,7 +3,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 h1 {
   color: 15px;
@@ -83,12 +83,23 @@ h1 {
   padding: 10px;
 }
 .navbar-search form button {
-  background-color: #17A021;
+  background-color: #17a021;
+  color: white;
+  height: 40px;
+  box-shadow: 0;
+  border: 1px solid #17a021;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.navbar-search form button:hover {
+  background-color: #2ff43d;
   color: white;
   height: 40px;
   box-shadow: 0;
   border-radius: 4px;
+  border: 1px solid #2ff43d;
 }
+
 .searchForm {
   display: flex;
   margin-right: 30px;
@@ -168,5 +179,16 @@ li {
 
 .nav-link-text {
   color: black;
+  font-weight: 700;
+}
+
+.stock-link {
+  text-decoration: none;
+  color: #17a021;
+  font-weight: 700;
+}
+.stock-link:hover {
+  text-decoration: none;
+  color: #2ff43d;
   font-weight: 700;
 }
