@@ -17,6 +17,7 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
   const query = req.query.symbol;
   const stock = query.toUpperCase();
   const user = req.session.currentUser._id;
+  const errorMessage = req.query.errorMessage ? req.query.errorMessage : false;
 
   finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
     finnhubClient.companyProfile2(
@@ -51,6 +52,7 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
                   accountMoney,
                   stockTrade,
                   accountInfo,
+                  errorMessage,
                 });
               });
             });
@@ -147,9 +149,9 @@ router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
   const { entryPrice, sharesNumber } = req.body;
   const userId = req.session.currentUser._id;
   const tradeValue = entryPrice * sharesNumber;
+  let errorMessage = false;
 
   Account.find({ userId: { $eq: userId } }).then((account) => {
-    const newAccountBalance = account[0].buyingPower + tradeValue;
     const accountId = account[0]._id;
     Trade.findOne({
       ticker: { $eq: ticker },
@@ -158,19 +160,28 @@ router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
       .then((trade) => {
         const tradeId = trade._id;
         console.log(trade);
+
+        // Need some work
         if (sharesNumber > trade.sharesNumber) {
-          res.setHeader("Content-Type", "text/plain");
-          res.render("stocks/stocks-info", { errorMessage: "error" });
+          errorMessage = true;
+          //   "Error: You do not have enough stock to sell you worthless piece of garbage!!!";
+          // console.log({ error: errorMessage });
+          res.redirect(
+            `/stock/quote?symbol=${ticker}&errorMessage=Error: You don't own enough shares`
+          );
           return;
         } else if (sharesNumber == trade.sharesNumber) {
           console.log("shares are equal");
-          Trade.deleteMany({ _id: tradeId }).then(() => {
+          Trade.deleteOne({ _id: tradeId }).then(() => {
+            const newAccountBalance = account[0].buyingPower + tradeValue;
+
             return Account.updateOne(
               { userId: { $eq: userId } },
               { $set: { buyingPower: newAccountBalance.toFixed(2) } }
             );
           });
         } else {
+          console.log("final loop");
           const newShares = trade.sharesNumber - sharesNumber;
           Account.find({ userId: { $eq: userId } });
           return Trade.updateOne(
@@ -180,12 +191,21 @@ router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
         }
       })
       .then(() => {
+        const newAccountBalance = !errorMessage
+          ? account[0].buyingPower + tradeValue
+          : account[0].buyingPower;
+
         return Account.updateOne(
           { userId: { $eq: userId } },
           { $set: { buyingPower: newAccountBalance.toFixed(2) } }
         );
+      })
+      .then(() => {
+        if (!errorMessage) {
+          console.log("************* Error message ****************");
+          res.redirect("back");
+        }
       });
-    res.redirect("back");
   });
 });
 module.exports = router;
