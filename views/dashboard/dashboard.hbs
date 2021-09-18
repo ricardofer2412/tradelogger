@@ -12,7 +12,7 @@
         <p class='buying'>Buying Power</p>
     </div>
     <div>
-       <p class='buying'>${{accountInfo.accountBalance}}</p>
+       <p class='buying'>${{accountInfo.buyingPower}}</p>
     </div>
     </div>
       <hr>
@@ -44,14 +44,17 @@
     <div class='stock-buy-div'>
           <div class='buy-div'>
              <h3>Stocks</h3>
-     
-            <li id='ticker'>TSLA</li>
-            <li>AAPL</li>
-              <li>TSLA</li>
-            <li>AAPL</li>
-              <li>TSLA</li>
-            <li>AAPL</li>
-   <hr>
+
+          {{#each trade}}
+          <div> 
+            <p>{{ticker}} - {{sharesNumber}}(shares)</p>
+            <p>${{tradeValue}}</p>
+          </div>
+          <hr>
+         
+            
+          {{/each}}
+
      <h3>Watch List</h3>
      
             <li id='ticker'>TSLA</li>
