@@ -11,6 +11,7 @@ const Post = require("../models/Post.model");
 const Account = require("../models/Account.model");
 const Trade = require("../models/Trade.model");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
+const { countDocuments } = require("../models/Account.model");
 
 
 //search for stock
@@ -45,9 +46,7 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
                 for (let i = 0; i < trade.lenght; i++) {
                   console.log(trade.tradeValue);
                 }
-
                 const stockTrade = trade[0];
-
                 res.render("stocks/stocks-info", {
                   candleData,
                   quoteData,

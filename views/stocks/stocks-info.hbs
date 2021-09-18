@@ -52,57 +52,52 @@
     <div class='stock-buy-div'>
         <div class='buy-div'>
             <div class='ticker'>
-            <h4 id='ticker'>{{companyData.ticker}}</h4>
+                <h4 id='ticker'>{{companyData.ticker}}</h4>
             </div>
-        <form method='POST'>
-        <div class='buy-form'>
-           
-            <label class="form-label">
-               Market Price
-            </label>
-             <input  class="form-control" type='number' id='marketPrice' name='entryPrice' value= {{quoteData.c}}> 
-       
-            <label class="form-label">
-                Shares:
-            </label>
-                <input class="form-control" type='number' id='sharesNumber' name='sharesNumber' value='0' />
-            <h4>Estimated Cost</h4>
-            <h2 id='estimateValue' name='tradeValue'>$0</h2>
-            <div class='button-div'>
-
-        <button onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
-
-        <div class='comments'>
-           
-            <form action='/stock/quote/{{companyData.ticker}}/sell' method='POST'>
-                <div class='button-div'>
-                    <button class="btn btn-danger" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}/sell">Sell </button>
-                </div>
-                <div>
-                    <button class="btn btn-success" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}">Buy </button>
+            <form method='POST'>
+                <div class='buy-form'>
+    
+                    <label class="form-label">
+                        Market Price
+                    </label>
+                    <input class="form-control" type='number' id='marketPrice' name='entryPrice' value={{quoteData.c}}>
+    
+                    <label class="form-label">
+                        Shares:
+                    </label>
+                    <input class="form-control" type='number' id='sharesNumber' name='sharesNumber' value='0' />
+                    <h4>Estimated Cost</h4>
+                    <h2 id='estimateValue' name='tradeValue'>$0</h2>
+                    <div class='button-div'>
+    
+                        <button class="btn btn-success" id='buy-button' type='submit'
+                            formaction="/stock/quote/{{companyData.ticker}}">Buy </button>
+                    </div>
+                    <form action='/stock/quote/{{companyData.ticker}}/sell' method='POST'>
+                        <div class='button-div'>
+                            <button class="btn btn-danger" id='buy-button' type='submit'
+                                formaction="/stock/quote/{{companyData.ticker}}/sell">Sell </button>
+                        </div>
+    
+                    </form>
+    
+    
+                    {{#if errorMessage}}
+                    <div class='error-div'>
+                        <p class="error-message">{{errorMessage}}</p>
+                    </div>
+    
+                    {{/if}}
+    
+    
                 </div>
             </form>
-            
-                
-                {{#if errorMessage}}
-                <div class='error-div'>
-                    <p class="error-message">{{errorMessage}}</p>
-                </div>
-               
-                {{/if}}
-
-            
-             </div>  
-        </form> 
-       
-        <div class='button-div'> 
-        <button class="btn btn-secondary" onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
-         <p class='buying-text'>Buying Power Available: ${{accountInfo.buyingPower}} </p>
-        </div>
-
-        </div>
-            
-           
+    
+            <div class='button-div'>
+                <button class="btn btn-secondary" onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
+                <p class='buying-text'>Buying Power Available: ${{accountInfo.buyingPower}} </p>
+            </div>
+    
         </div>
     </div>
 </div>
