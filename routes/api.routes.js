@@ -11,7 +11,7 @@ const Post = require("../models/Post.model");
 const Account = require("../models/Account.model");
 const Trade = require("../models/Trade.model");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
-
+const { countDocuments } = require("../models/Account.model");
 
 //search for stock
 router.get("/quote", isLoggedIn, (req, res, next) => {
@@ -19,7 +19,6 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
   const stock = query.toUpperCase();
   const user = req.session.currentUser._id;
   const errorMessage = req.query.errorMessage ? req.query.errorMessage : false;
-
 
   finnhubClient.quote(`${stock}`, (error, quoteData, response) => {
     finnhubClient.companyProfile2(
@@ -32,32 +31,30 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
           1591852249,
           (error, candleData, response) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
-              Comment.find({tickerId: stock})
-              .then((commentFromDb)=>{
-              const accountMoney = account[0].accountBalance;
-              const accountId = account[0]._id;
-              const accountInfo = account[0];
-              Trade.find({
-                ticker: { $eq: stock },
-                accountId: { $eq: accountId },
-              }).then((trade) => {
-                let sumBalance = 0;
-                for (let i = 0; i < trade.lenght; i++) {
-                  console.log(trade.tradeValue);
-                }
-
-                const stockTrade = trade[0];
-
-                res.render("stocks/stocks-info", {
-                  candleData,
-                  quoteData,
-                  companyData,
-                  stock,
-                  accountMoney,
-                  stockTrade,
-                  accountInfo,
-                  commentFromDb,
-                  errorMessage,
+              Comment.find({ tickerId: stock }).then((commentFromDb) => {
+                const accountMoney = account[0].accountBalance;
+                const accountId = account[0]._id;
+                const accountInfo = account[0];
+                Trade.find({
+                  ticker: { $eq: stock },
+                  accountId: { $eq: accountId },
+                }).then((trade) => {
+                  let sumBalance = 0;
+                  for (let i = 0; i < trade.lenght; i++) {
+                    console.log(trade.tradeValue);
+                  }
+                  const stockTrade = trade[0];
+                  res.render("stocks/stocks-info", {
+                    candleData,
+                    quoteData,
+                    companyData,
+                    stock,
+                    accountMoney,
+                    stockTrade,
+                    accountInfo,
+                    commentFromDb,
+                    errorMessage,
+                  });
                 });
               });
             });
@@ -66,70 +63,81 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
       }
     );
   });
-})});
-
-
-  
-
+});
 
 ////////////////////////////////////////////////////////////////***create a comment****///////////////////////////////////////////
-router.post('/comments/:ticker', (req, res) => {
-    const {ticker} = req.params
-    const {content} = req.body;
-    const userId = req.session.currentUser._id;
-    
-    Comment.create({tickerId: ticker, content, authorId: userId})
+router.post("/comments/:ticker", (req, res) => {
+  const { ticker } = req.params;
+  const { content } = req.body;
+  const userId = req.session.currentUser._id;
+
+  Comment.create({ tickerId: ticker, content, authorId: userId })
     .then((response) => {
-        res.redirect("back")
-    }).catch((error) => {console.log(error)})
-})
-
-router.post('/:commentId/delete', (req, res) => {
-    const {commentId} = req.params;
-    
-    Comment.findById(commentId).then((comment) => {
-      const authorId = comment.authorId;
-      
-      if(authorId == req.session.currentUser._id){ 
-        Comment.findByIdAndDelete(commentId)
-         .then(() => res.redirect('back'))
-        .catch(error => next(error));
-      }else if(authorId != req.session.currentUser._id){
-        res.redirect('back')
-      }
+      res.redirect("back");
     })
-})
-
-/////////////////////////////////////////////////////////UPDATE COMMENT/////////////////////////////////////////
-router.get("/:commentId/update", (req, res) => {
-  const {commentId} = req.params;
-  Comment.findById(commentId)
-    .then(userComment => {
-      const authorId = userComment.authorId
-      const ticker = userComment.tickerId;
-      if(authorId == req.session.currentUser._id){
-        res.render("comments/update", {comment: userComment})
-      }else if(authorId != req.session.currentUser._id){
-        res.redirect('back')
-      }
-    })
-    .catch(error => next(error));
-})
-
-
-router.post('/:commentId/update', (req, res)=>{
-    const {commentId} = req.params;
-    console.log(commentId)
-    const {newContent} = req.body;
-
-    Comment.findByIdAndUpdate(commentId, {content: newContent})
-    .then((comment)=>{
-        const ticker = comment.tickerId;
-        res.redirect(`../quote?symbol=${ticker}`)
-})
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 
+
+////////////////////////////////////////////////////////////////***create a comment****//////////////////////////////////////////
+router.post('/comments/:ticker', (req, res) => {
+  const {ticker} = req.params
+  const {content} = req.body;
+  const userId = req.session.currentUser._id;
+  
+  Comment.create({tickerId: ticker, content, authorId: userId})
+  .then((response) => {
+      res.redirect("back")
+  }).catch((error) => {console.log(error)})
+})
+
+router.post("/:commentId/delete", (req, res) => {
+  const { commentId } = req.params;
+
+Comment.findById(commentId).then((comment) => {
+    const authorId = comment.authorId;
+
+    if (authorId == req.session.currentUser._id) {
+      Comment.findByIdAndDelete(commentId)
+        .then(() => res.redirect("back"))
+        .catch((error) => next(error));
+    } else if (authorId != req.session.currentUser._id) {
+      res.redirect("back");
+    }
+  });
+});
+
+/////////////////////////////////////////////////////////UPDATE COMMENT/////////////////////////////////////////
+router.get("/:commentId/update", (req, res) => {
+  const { commentId } = req.params;
+  Comment.findById(commentId)
+    .then((userComment) => {
+      const authorId = userComment.authorId;
+      const ticker = userComment.tickerId;
+      if (authorId == req.session.currentUser._id) {
+        res.render("comments/update", { comment: userComment });
+      } else if (authorId != req.session.currentUser._id) {
+        res.redirect("back");
+      }
+    })
+    .catch((error) => next(error));
+});
+
+router.post("/:commentId/update", (req, res) => {
+  const { commentId } = req.params;
+  console.log(commentId);
+  const { newContent } = req.body;
+
+  Comment.findByIdAndUpdate(commentId, { content: newContent }).then(
+    (comment) => {
+      const ticker = comment.tickerId;
+      res.redirect(`../quote?symbol=${ticker}`);
+    }
+  );
+});
 
 //fix different account stock buying
 router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
@@ -202,12 +210,10 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
 });
 
 router.get("/posts", (req, res, next) => {
-  Post.find()
-    .then((dbPosts) => {
-      console.log("Posts from the DB: ", dbPosts);
-    })
+  Post.find().then((dbPosts) => {
+    console.log("Posts from the DB: ", dbPosts);
+  });
 });
-
 
 router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
   const { ticker } = req.params;
@@ -273,6 +279,5 @@ router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
       });
   });
 });
-
 
 module.exports = router;
