@@ -34,10 +34,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // const getPrice = require("./public/js/stocksPrices");
-// app.use(getPrice);
+// app.use(getPrice);xs
 
-const currentUrl = require("./middleware/current-url");
-app.use(currentUrl);
+
+
+
 
 // 👇 Start handling routes here
 const index = require("./routes/index");

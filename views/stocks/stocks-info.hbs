@@ -22,65 +22,82 @@
             </div>
         </div>
            <div class="comment-form">
-            <h2>Create a new comment</h2>
-                <form action="/post-create" method="POST">
-                    <textarea type="text" name="content"> </textarea>
-                <button type="submit"> Submit </button>
-            </form>
+             
+            <h2 name='ticker'>Comments:</h2>
+                {{#each commentFromDb}}   
+                    </div>
+                        <hr>
+                            <h4>{{this.content}}</h4>
+                            <a href="{{this._id}}/update">Update</a>
+                            <form action="{{this._id}}/delete" method="post">
+                            <button>Delete</button>
+                            </form>
+
+                          
+                        <hr>
+                    <div>
+                {{/each}}
+
+            <div class="comment-div">
+                <h2>Create a new comment</h2>
+                <form class="comment-form" action="/stock/comments" method="post">
+                Ticker: <input type="text" name="ticker" value="{{companyData.ticker}}">
+                Comment: <textarea type="text" name="content"> </textarea>
+                    <button type="submit"> Submit </button>
+                </form>
+            </div>
         </div>
     </div>
   
     <div class='stock-buy-div'>
         <div class='buy-div'>
             <div class='ticker'>
-            <h4 id='ticker'>{{companyData.ticker}}</h4>
+                <h4 id='ticker'>{{companyData.ticker}}</h4>
             </div>
-        <form method='POST'>
-        <div class='buy-form'>
-           
-            <label class="form-label">
-               Market Price
-            </label>
-             <input  class="form-control" type='number' id='marketPrice' name='entryPrice' value= {{quoteData.c}}> 
-       
-            <label class="form-label">
-                Shares:
-            </label>
-                <input class="form-control" type='number' id='sharesNumber' name='sharesNumber' value='0' />
-            <h4>Estimated Cost</h4>
-            <h2 id='estimateValue' name='tradeValue'>$0</h2>
-            <div class='button-div'>
-
-                <button class="btn btn-success" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}">Buy </button>
-            </div>
-            <form action='/stock/quote/{{companyData.ticker}}/sell' method='POST'>
-                <div class='button-div'>
-                    <button class="btn btn-danger" id='buy-button' type='submit' formaction="/stock/quote/{{companyData.ticker}}/sell">Sell </button>
+            <form method='POST'>
+                <div class='buy-form'>
+    
+                    <label class="form-label">
+                        Market Price
+                    </label>
+                    <input class="form-control" type='number' id='marketPrice' name='entryPrice' value={{quoteData.c}}>
+    
+                    <label class="form-label">
+                        Shares:
+                    </label>
+                    <input class="form-control" type='number' id='sharesNumber' name='sharesNumber' value='0' />
+                    <h4>Estimated Cost</h4>
+                    <h2 id='estimateValue' name='tradeValue'>$0</h2>
+                    <div class='button-div'>
+    
+                        <button class="btn btn-success" id='buy-button' type='submit'
+                            formaction="/stock/quote/{{companyData.ticker}}">Buy </button>
+                    </div>
+                    <form action='/stock/quote/{{companyData.ticker}}/sell' method='POST'>
+                        <div class='button-div'>
+                            <button class="btn btn-danger" id='buy-button' type='submit'
+                                formaction="/stock/quote/{{companyData.ticker}}/sell">Sell </button>
+                        </div>
+    
+                    </form>
+    
+    
+                    {{#if errorMessage}}
+                    <div class='error-div'>
+                        <p class="error-message">{{errorMessage}}</p>
+                    </div>
+    
+                    {{/if}}
+    
+    
                 </div>
-               
             </form>
-            
-                
-                {{#if errorMessage}}
-                <div class='error-div'>
-                    <p class="error-message">{{errorMessage}}</p>
-                </div>
-               
-                {{/if}}
-
-            
-             </div>  
-        </form> 
-       
-        <div class='button-div'> 
-        <button class="btn btn-secondary" onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
-         <p class='buying-text'>Buying Power Available: ${{accountInfo.buyingPower}} </p>
+    
+            <div class='button-div'>
+                <button class="btn btn-secondary" onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
+                <p class='buying-text'>Buying Power Available: ${{accountInfo.buyingPower}} </p>
+            </div>
+    
         </div>
-
-        </div>
-        
-     
-
-
     </div>
 </div>
