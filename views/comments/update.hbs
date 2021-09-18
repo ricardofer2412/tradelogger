@@ -1,10 +1,7 @@
-<h2>Edit Comment</h2>
-
-<form actions='/comment/{{_id}}/edit' method='post'>
-
+<form actions='stock/{{comment._id}}/update' method='post'>
     <label>
-        Comment
-        <input type='text' name='comment' value='{{comment}}' />
+        <h3>{{comment.tickerId}}</h3>
+        <input type='text' name='newContent' value='{{comment.content}}' />
     </label>
-    <button type='submit'>Save</button>
+ <button>Save</button>
 </form>

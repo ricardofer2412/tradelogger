@@ -30,11 +30,15 @@ const capitalized = (string) =>
 const userToLocals = require("./middleware/user-in-locals");
 app.use(userToLocals);
 
-// const getPrice = require("./public/js/stocksPrices");
-// app.use(getPrice);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const currentUrl = require("./middleware/current-url")
-app.use(currentUrl)
+// const getPrice = require("./public/js/stocksPrices");
+// app.use(getPrice);xs
+
+
+
+
 
 // 👇 Start handling routes here
 const index = require("./routes/index");
@@ -49,7 +53,8 @@ app.use("/", authRoutes);
 const apiRoutes = require("./routes/api.routes");
 app.use("/stock", apiRoutes);
 
-
+// const postRoutes = require("./routes/post.routes")
+// app.use(`/post`, postRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
