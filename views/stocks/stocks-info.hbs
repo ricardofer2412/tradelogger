@@ -40,8 +40,8 @@
 
             <div class="comment-div">
                 <h2>Create a new comment</h2>
-                <form class="comment-form" action="/stock/comments" method="post">
-                Ticker: <input type="text" name="ticker" value="{{companyData.ticker}}">
+                <form class="comment-form" action="/stock/comments/{{companyData.ticker}}" method="post">
+            
                 Comment: <textarea type="text" name="content"> </textarea>
                     <button type="submit"> Submit </button>
                 </form>
