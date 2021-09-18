@@ -53,6 +53,9 @@ app.use("/", authRoutes);
 const apiRoutes = require("./routes/api.routes");
 app.use("/stock", apiRoutes);
 
+const newRoute = require('./routes/news.route')
+app.use('/news', newRoute);
+
 // const postRoutes = require("./routes/post.routes")
 // app.use(`/post`, postRoutes);
 

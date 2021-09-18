@@ -13,7 +13,7 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 
 router.post("/signup", isLoggedOut, (req, res, next) => {
   const { firstName, lastName, email, username, password } = req.body;
-
+  console.log(firstName, lastName, email);
   if (!firstName || !lastName || !email || !username || !password) {
     res.render("user/signup", {
       errorMessage: "Please fill out all required fields",
@@ -32,6 +32,7 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
         }).then((createdUser) => {
           const userId = createdUser._id;
           Account.create({
+            buyingPower: 100000,
             accountBalance: 100000,
             userId: userId,
           }).then((account) => {
