@@ -1,6 +1,7 @@
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: var(--primary-color);
 }
 a {
   color: #00b7ff;
@@ -194,4 +195,17 @@ li {
   text-decoration: none;
   color: #2ff43d;
   font-weight: 700;
+}
+
+
+/* Dark Theme */
+
+#icon {
+  width: 30px;
+  cursor: pointer;
+}
+
+:root {
+  --primary-color: #edf2fc;
+  --secondary-color: #212121;
 }

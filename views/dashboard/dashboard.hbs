@@ -45,15 +45,21 @@
           <div class='buy-div'>
              <h3>Stocks</h3>
 
-          {{#each trade}}
+          {{#if trade}}
+               {{#each trade}}
           <div> 
             <p><a href="/stock/quote?symbol={{ticker}}" rel="noopener noreferrer" class='stock-link'>{{ticker}}</a>- {{sharesNumber}}(shares)</p>
             <p>${{tradeValue}}</p>
           </div>
           <hr>
-         
+
             
           {{/each}}
+            {{else}}
+                         <p> You don't own any stocks</p>
+          {{/if}}
+   
+
 
      <h3>Watch List</h3>
      
