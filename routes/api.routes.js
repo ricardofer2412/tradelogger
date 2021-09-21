@@ -32,6 +32,15 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
           (error, candleData, response) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
               Comment.find({ tickerId: stock }).then((commentFromDb) => {
+
+                const comments = commentFromDb.map(comment => {
+                  console.log('this is comment authorId:', comment.authorId)
+                  console.log('this is session authorId:', req.session.currentUser._id)
+                  comment.userCanEdit = comment.authorId == req.session.currentUser._id
+                  return comment;
+                })
+                
+
                 const accountMoney = account[0].accountBalance;
                 const accountId = account[0]._id;
                 const accountInfo = account[0];

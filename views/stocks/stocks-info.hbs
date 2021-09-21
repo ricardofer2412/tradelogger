@@ -25,27 +25,29 @@
            <div class="comment-form"> 
                
                 <div class="create-comment-div">
-                    <h2>Create a new comment</h2>
+                        <h2>Create a new comment:</h2>
                     <form class="comment-form" action="/stock/comments/{{companyData.ticker}}" method="post">
                         {{!-- Ticker: <input type="text" name="ticker" value="{{companyData.ticker}}" readonly> --}}
-                        Comment: <textarea type="text" name="content"> </textarea>
+                        <textarea type="text" name="content"> </textarea>
                         <button type="submit"> Submit </button>
                     </form>
                 </div>
                <div class="show-comment-div">
                    <h2 name='ticker'>Comments:</h2>
                     {{#each commentFromDb}}   
-                            <hr>
                                 <h4>{{this.content}}</h4>
-                                <a href="{{this._id}}/update">Update</a>
+                                <h6>{{userInSession.firstName}}</h6>
+                               {{#if this.userCanEdit}}
+                                <a href="{{this._id}}/update">Edit</a>
                                 <form action="{{this._id}}/delete" method="post">
                                 <button>Delete</button>
                                 </form>
-                            <hr>
+                                {{/if}}
                     {{/each}} 
                </div>
                 
            </div>
+
     </div>
   
     <div class='stock-buy-div'>
