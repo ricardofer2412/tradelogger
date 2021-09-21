@@ -1,28 +1,24 @@
 :root {
-  --primary-color:white;
+  --primary-color: white;
   --secondary-color: #212121;
-  --border-color: rgb(64,73,78);
-
+  --border-color: rgb(64, 73, 78);
 }
 
 .dark-theme {
-    --primary-color: #000106;
-    --secondary-color: #fff;
-    --third-color: rgb(30,33,36);;
-    --border-color: rgb(64,73,78);
+  --primary-color: #000106;
+  --secondary-color: #fff;
+  --third-color: rgb(30, 33, 36);
+  --border-color: rgb(64, 73, 78);
 }
-
-
-
 
 #main {
   background-color: var(--primary-color);
 }
 p {
-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
- h2 {
+h2 {
   color: var(--secondary-color);
 }
 h3 {
@@ -30,12 +26,11 @@ h3 {
 }
 
 .line {
-  border-top: 1px solid var(--border-color)
+  border-top: 1px solid var(--border-color);
 }
 
-
 #logo {
-  margin-top: -70px
+  margin-top: -70px;
 }
 body {
   padding: 0px;
@@ -43,7 +38,7 @@ body {
   background-color: var(--primary-color);
 }
 a {
-  color: #00b7ff;
+  color: rgb(64, 73, 78);
 }
 h1 {
   color: 15px;
@@ -156,7 +151,7 @@ li {
 }
 .a-login {
   font-family: Arial, Helvetica, sans-serif;
-  color: black;
+  color: var(--secondary-color);
   font-size: 24px;
   margin-right: 80px;
   font-weight: bold;
@@ -236,15 +231,14 @@ li {
   font-weight: 700;
 }
 
-
 /* Dark Theme */
 
 #icon {
-  width: 30px;
+  margin-top: 5px;
+  width: 25px;
   cursor: pointer;
 }
 
 .img-div {
-
   height: 50px;
 }
