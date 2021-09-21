@@ -6,7 +6,7 @@
     <div class=''>
              <canvas id="myChart" width="400" height="250"></canvas>
     </div>
-    <hr>
+    <hr class='line'>
     <div class='buying-power'>
  <div>
         <p class='buying'>Buying Power</p>
@@ -15,7 +15,7 @@
        <p class='buying'>${{accountInfo.buyingPower}}</p>
     </div>
     </div>
-      <hr>
+    <hr class='line'>
     <div> 
         <div>
             <h3>News</h3>
@@ -34,7 +34,7 @@
                      </div>
                  </div>
 
-                <hr>
+                <hr class='line'>
             </div>
                
             {{/each}}
@@ -51,7 +51,7 @@
             <p><a href="/stock/quote?symbol={{ticker}}" rel="noopener noreferrer" class='stock-link'>{{ticker}}</a>- {{sharesNumber}}(shares)</p>
             <p>${{tradeValue}}</p>
           </div>
-          <hr>
+         <hr class='line'>
 
             
           {{/each}}
@@ -63,12 +63,20 @@
 
      <h3>Watch List</h3>
      
-            <li id='ticker'>TSLA</li>
-            <li>AAPL</li>
-              <li>TSLA</li>
-            <li>AAPL</li>
-              <li>TSLA</li>
-            <li>AAPL</li>
+           {{#if trade}}
+               {{#each trade}}
+          <div> 
+            <p><a href="/stock/quote?symbol={{ticker}}" rel="noopener noreferrer" class='stock-link'>{{ticker}}</a>- {{sharesNumber}}(shares)</p>
+            <p>${{tradeValue}}</p>
+          </div>
+          <hr class='line'>
+
+            
+          {{/each}}
+            {{else}}
+                         <p> You don't own any stocks</p>
+          {{/if}}
+   
     </div>
   
     
