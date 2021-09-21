@@ -17,20 +17,18 @@
 }
 
 .stock-price-info {
-  width: 65%;
+  width: 75%;
 }
 
 .stock-buy-div {
-  width: 35%;
+  width: 500px;
   padding: 20px;
 }
 
 .buy-div {
   background-color: var(--third-color);
   margin-top: 50px;
-  margin-left: 50px;
-  
-
+  margin-left: 30px;
   border: 0.5px solid var(--border-color);
   border-radius: 5px;
   padding: 30px;
@@ -122,4 +120,18 @@
 #action-button {
   margin-right: 10px;
 
+}
+
+.username {
+  color: var(--secondary-color);
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.user-post {
+  display: flex;
+}
+.time{
+  font-size: 13px;
+  color: gray
 }

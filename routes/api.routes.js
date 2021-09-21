@@ -32,6 +32,11 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
           (error, candleData, response) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
               Comment.find({ tickerId: stock }).then((commentFromDb) => {
+                const timeS = commentFromDb[0].createdAt
+                const newTime = timeS.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+
+                console.log(newTime)
+
                 const accountMoney = account[0].accountBalance;
                 const accountId = account[0]._id;
                 const accountInfo = account[0];
@@ -54,6 +59,7 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
                     accountInfo,
                     commentFromDb,
                     errorMessage,
+                    newTime
                   });
                 });
               });
@@ -67,18 +73,25 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////***create a comment****///////////////////////////////////////////
 router.post("/comments/:ticker", (req, res) => {
+  
+  const time = new Date()
+  const newTime = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+  console.log(time)
   const { ticker } = req.params;
   const { content } = req.body;
   const userId = req.session.currentUser._id;
-
-  Comment.create({ tickerId: ticker, content, authorId: userId })
+  const userName= req.session.currentUser.username;
+  Comment.create({ tickerId: ticker, content, authorId: userId, userName: userName, postTime: newTime })
     .then((response) => {
       res.redirect("back");
     })
     .catch((error) => {
       console.log(error);
     });
+
 });
+
+
 
 router.post("/:commentId/delete", (req, res) => {
   const { commentId } = req.params;
