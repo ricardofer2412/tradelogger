@@ -97,3 +97,29 @@
   color: red;
   text-align: center;
 }
+
+
+#submitComment {
+  background-color: var(--green-color) ;
+  border: 1px solid var(--green-color);
+}
+
+.comment-button-div {
+  margin-top: 10px
+
+}
+
+#delete-icon {
+  color: red;
+  cursor: pointer
+}
+
+.action-button-div {
+  display: flex;
+
+}
+
+#action-button {
+  margin-right: 10px;
+
+}
