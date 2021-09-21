@@ -10,9 +10,8 @@
         <p>${{quoteData.d}} ({{quoteData.dp}}%) Today</p>
          <p></p>    
         </div>
-        <div class=''>
+        <div class='graph'>
                 <canvas id="myChart" width="400" height="250"></canvas>
-             
         </div>
         <div>
             <div>
@@ -33,8 +32,11 @@
                   
                 </form>
             </div>
-
-
+        {{!-- {{#if userInSession._id == authorId }}
+        
+            <p>comments</p>
+        {{/if}} --}}
+   
             <h4 name='ticker'>Comments:</h4>
                         <hr class='line'>
                 {{#each commentFromDb}}   
@@ -45,10 +47,12 @@
                             </div>
                     
                             <p class='comment-content'>{{this.content}}</p>
+
+                           
                             <div class="action-button-div">
                             <a class="btn btn-warning" href="{{this._id}}/update" role="button" id='action-button'><i class="material-icons">create</i></a>
                             <form action="{{this._id}}/delete" method="post">
-                            <button type='button' class="btn btn-danger"><i class="material-icons">delete</i></button>
+                            <button type='submit' class="btn btn-danger"><i class="material-icons">delete</i></button>
                             </form>
                             </div>
                        
