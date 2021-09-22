@@ -32,10 +32,7 @@
                   
                 </form>
             </div>
-        {{!-- {{#if userInSession._id == authorId }}
-        
-            <p>comments</p>
-        {{/if}} --}}
+ 
    
             <h4 name='ticker'>Comments:</h4>
                         <hr class='line'>
@@ -48,11 +45,11 @@
                     
                             <p class='comment-content'>{{this.content}}</p>
 
-                           
+                          
                             <div class="action-button-div">
                             <a class="btn btn-warning" href="{{this._id}}/update" role="button" id='action-button'><i class="material-icons">create</i></a>
                             <form action="{{this._id}}/delete" method="post">
-                            <button type='submit' class="btn btn-danger"><i class="material-icons">delete</i></button>
+                            <button type='submit' class="btn btn-danger"><i class="material-icons" id='delete-button'>delete</i></button>
                             </form>
                             </div>
                        

@@ -11,7 +11,7 @@ const Post = require("../models/Post.model");
 const Account = require("../models/Account.model");
 const Trade = require("../models/Trade.model");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
-const { countDocuments } = require("../models/Account.model");
+const { countDocuments, deleteOne } = require("../models/Account.model");
 
 //search for stock
 router.get("/quote", isLoggedIn, (req, res, next) => {
@@ -32,6 +32,20 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
           (error, candleData, response) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
               Comment.find({ tickerId: stock }).then((commentFromDb) => {
+                // console.log("this is user", user);
+                // for (let i = 0; i < commentFromDb.length; i++) {
+                //   const { authorId } = commentFromDb[i];
+                //   console.log(authorId);
+                //   if (user === authorId) {
+                //     console.log("there are the same");
+                //   } else {
+                //     console.log("there not the same");
+                //     const deleteRemove =
+                //       document.getElementById("delete-button");
+                //     deleteRemove.remove();
+                //   }
+                // }
+
                 const accountMoney = account[0].accountBalance;
                 const accountId = account[0]._id;
                 const accountInfo = account[0];
