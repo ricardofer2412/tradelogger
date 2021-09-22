@@ -1,7 +1,11 @@
-<form actions='stock/{{comment._id}}/update' method='post'>
-    <label>
-        <h3>{{comment.tickerId}}</h3>
-        <input type='text' name='newContent' value='{{comment.content}}' />
-    </label>
- <button>Save</button>
-</form>
+
+
+<div class="comment-update-div">
+    <form actions='stock/{{comment._id}}/update' method='post'>
+        <label>
+            <h3>{{comment.tickerId}}</h3>
+            <textarea name="newContent" id="" cols="30" rows="10">{{comment.content}}</textarea>
+        </label>
+        <button>Save</button>
+    </form>
+</div>
