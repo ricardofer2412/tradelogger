@@ -1,9 +1,46 @@
+:root {
+  --primary-color: white;
+  --secondary-color: #212121;
+  --border-color: rgb(64, 73, 78);
+  --green-color: #17a021;
+}
+
+.dark-theme {
+  --primary-color: #000106;
+  --secondary-color: #fff;
+  --third-color: rgb(30, 33, 36);
+  --border-color: rgb(64, 73, 78);
+  --green-color: #17a021;
+}
+
+#main {
+  background-color: var(--primary-color);
+}
+p {
+  color: var(--secondary-color);
+}
+
+h2 {
+  color: var(--secondary-color);
+}
+h3 {
+  color: var(--secondary-color);
+}
+
+.line {
+  border-top: 1px solid var(--border-color);
+}
+
+#logo {
+  margin-top: -70px;
+}
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: var(--primary-color);
 }
 a {
-  color: #00b7ff;
+  color: rgb(64, 73, 78);
 }
 h1 {
   color: 15px;
@@ -116,7 +153,7 @@ li {
 }
 .a-login {
   font-family: Arial, Helvetica, sans-serif;
-  color: black;
+  color: var(--secondary-color);
   font-size: 24px;
   margin-right: 80px;
   font-weight: bold;
@@ -200,14 +237,14 @@ li {
 
 /* ........................ COMMENT FORM .............................. */
 
-.comment-form{
+/* .comment-form{
   
-}
+} */
 
 /* ........................ CREATE COMMENT FORM .............................. */
-.create-comment-div{
-  border: 0px 1px 1px 1px solid;
-}
+/* .create-comment-div{
+  
+} */
 
 
 
@@ -268,5 +305,18 @@ li {
 
 .show-comment-div{
   margin-top: 10px;
+}
+
+
+/* Dark Theme */
+
+#icon {
+  margin-top: 5px;
+  width: 25px;
+  cursor: pointer;
+}
+
+.img-div {
+  height: 50px;
 }
 

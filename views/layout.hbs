@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html data-theme="dark">
 
 <head>
    <meta charset="UTF-8">
@@ -33,9 +33,10 @@
 
    <div class='img-div'>
    <a class="navbar-brand" href="/dashboard">
-   <img src="/images/logo.png" width="200" height="50" alt="">
+   <img src="/images/logo.png" width="200" height="200" alt="" id='logo'>
       </a>
    </div>
+  
 {{#if userInSession}}
 {{!-- <div class="collapse navbar-collapse" id="navbarNav"> --}}
 <div class='nav-menu'>
@@ -43,6 +44,7 @@
       <a class='stock-link' href="/news">News</a>
          <a class='stock-link' href="/news">Watchlist</a>
          <a class='stock-link' href="/news">Account</a>
+       
 </div>
 <div class="navbar-search">
    <form action="/stock/quote">
@@ -50,7 +52,7 @@
       <input type="text" placeholder=" Search ticker..." name="symbol" class="form-control">
     
 
-   <button type="submit" class="btn btn-primary" ><i class="material-icons">search</i>Search</button>
+   <button type="submit" class="btn btn-primary" ><i class="material-icons">search</i></button>
    </div>
     
    </form>
@@ -63,20 +65,40 @@
       <a style="text-decoration: none;" href="/login" class="a-login">Log In</a>
    </div>
    {{/if}}
+    <div>
+      <img src="images/moon.png" alt="" id='icon'>
+   </div>
 </div>
+
 </div>   
    </nav>
 
    <div class='body'>
          {{{body}}}
-   </div>
+
    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
       integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script type="text/javascript" src="/js/stocksPrices.js"></script>
+
    <script src="/js/getGraph.js"></script>
    <script src="/js/script.js"></script>
+   <script>
+      var icon = document.getElementById('icon')
+      var logo = document.getElementById('logo')
+      icon.onclick = function() {
+         document.body.classList.toggle('dark-theme')
+         if(document.body.classList.contains('dark-theme')){
+            icon.src = 'images/sun.png'
+            logo.src = '/images/logo-light.png'
+           
+         } else {
+            icon.src = 'images/moon.png'
+             logo.src = '/images/logo.png'
+         }
+      }
+   </script>
 </body>
 
 </html>

@@ -76,11 +76,24 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
 
 ////////////////////////////////////////////////////////////////***create a comment****///////////////////////////////////////////
 router.post("/comments/:ticker", (req, res) => {
+  const time = new Date();
+  const newTime = time.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+  console.log(time);
   const { ticker } = req.params;
   const { content } = req.body;
   const userId = req.session.currentUser._id;
-
-  Comment.create({ tickerId: ticker, content, authorId: userId })
+  const userName = req.session.currentUser.username;
+  Comment.create({
+    tickerId: ticker,
+    content,
+    authorId: userId,
+    userName: userName,
+    postTime: newTime,
+  })
     .then((response) => {
       res.redirect("back");
     })
