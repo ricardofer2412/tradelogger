@@ -11,7 +11,7 @@ const finnhubClient = new finnhub.DefaultApi()
 router.get("/", isLoggedIn,(req, res, next) => {
     
     finnhubClient.marketNews("general", {}, (error, data, response) => {
-console.log(data)
+// console.log(data)
       res.render("news/news", {news: data})
     });
 
@@ -20,7 +20,7 @@ console.log(data)
  router.get("/crypto", isLoggedIn,(req, res, next) => {
     
   finnhubClient.marketNews("crypto", {}, (error, data, response) => {
-console.log(data)
+// console.log(data)
     res.render("news/crypto", {news: data})
   });
 
@@ -29,7 +29,7 @@ console.log(data)
 router.get("/forex", isLoggedIn,(req, res, next) => {
     
   finnhubClient.marketNews("forex", {}, (error, data, response) => {
-console.log(data)
+// console.log(data)
     res.render("news/forex", {news: data})
   });
 
@@ -38,7 +38,7 @@ console.log(data)
 router.get("/merger", isLoggedIn,(req, res, next) => {
     
   finnhubClient.marketNews("merger", {}, (error, data, response) => {
-console.log(data)
+// console.log(data)
     res.render("news/merger", {news: data})
   });
 

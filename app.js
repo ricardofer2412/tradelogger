@@ -30,6 +30,9 @@ const capitalized = (string) =>
 const userToLocals = require("./middleware/user-in-locals");
 app.use(userToLocals);
 
+// const buttonCheck = require('./middleware/buttons')
+// app.use(buttonCheck);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -32,19 +32,16 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
           (error, candleData, response) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
               Comment.find({ tickerId: stock }).then((commentFromDb) => {
-                // console.log("this is user", user);
-                // for (let i = 0; i < commentFromDb.length; i++) {
-                //   const { authorId } = commentFromDb[i];
-                //   console.log(authorId);
-                //   if (user === authorId) {
-                //     console.log("there are the same");
-                //   } else {
-                //     console.log("there not the same");
-                //     const deleteRemove =
-                //       document.getElementById("delete-button");
-                //     deleteRemove.remove();
-                //   }
-                // }
+                const comments = commentFromDb.map((comment) => {
+                  console.log("this is comment authorId:", comment.authorId);
+                  console.log(
+                    "this is session authorId:",
+                    req.session.currentUser._id
+                  );
+                  comment.userCanEdit =
+                    comment.authorId == req.session.currentUser._id;
+                  return comment;
+                });
 
                 const accountMoney = account[0].accountBalance;
                 const accountId = account[0]._id;
@@ -107,6 +104,21 @@ router.post("/comments/:ticker", (req, res) => {
     });
 });
 
+////////////////////////////////////////////////////////////////***create a comment****//////////////////////////////////////////
+router.post("/comments/:ticker", (req, res) => {
+  const { ticker } = req.params;
+  const { content } = req.body;
+  const userId = req.session.currentUser._id;
+
+  Comment.create({ tickerId: ticker, content, authorId: userId })
+    .then((response) => {
+      res.redirect("back");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 router.post("/:commentId/delete", (req, res) => {
   const { commentId } = req.params;
 
@@ -123,6 +135,7 @@ router.post("/:commentId/delete", (req, res) => {
   });
 });
 
+/////////////////////////////////////////////////////////UPDATE COMMENT/////////////////////////////////////////
 router.get("/:commentId/update", (req, res) => {
   const { commentId } = req.params;
   Comment.findById(commentId)

@@ -1,5 +1,5 @@
 window.onload = () => {
-  const ticker = document.getElementById("ticker").innerText;
+  const ticker = "TSLA";
   console.log("this is ticker", ticker);
   const api = "RZHOBZ5MUSOW2S61";
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${api}`;

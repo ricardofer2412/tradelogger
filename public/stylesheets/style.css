@@ -186,6 +186,8 @@ li {
   font-size: 30px;
 }
 
+
+
 /* ........................ NAV BAR 2.............................. */
 .navbar2 {
   height: 42px;
@@ -233,6 +235,79 @@ li {
   font-weight: 700;
 }
 
+/* ........................ COMMENT FORM .............................. */
+
+/* .comment-form{
+  
+} */
+
+/* ........................ CREATE COMMENT FORM .............................. */
+/* .create-comment-div{
+  
+} */
+
+
+
+.create-comment-div h2{
+  display: flex;
+  justify-content :center;
+  font-weight: 500;
+}
+
+
+
+.create-comment-div form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.create-comment-div form button{
+  margin-top: 3px;
+ width: 70px;
+}
+
+/* ........................ COMMENTS/UPDATE.HBS.............................. */
+
+
+.comment-update-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+
+.comment-update-div form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comment-update-div form h3{
+  text-align: center;
+}
+
+.comment-update-div form button{
+  width: 50px;
+}
+
+.comment-update-div form textarea{
+  width: 300px;
+  height: 75px;
+}
+
+
+
+/* ........................ SHOW COMMENT.............................. */
+
+.show-comment-div{
+  margin-top: 10px;
+}
+
+
 /* Dark Theme */
 
 #icon {
@@ -244,3 +319,4 @@ li {
 .img-div {
   height: 50px;
 }
+
