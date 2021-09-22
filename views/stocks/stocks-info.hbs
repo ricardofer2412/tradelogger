@@ -4,12 +4,7 @@
          <img class='logo' src={{companyData.logo}} alt="">
           <h2>{{companyData.name}}</h2>
         </div>
-        <div>
-            {{#if errorMessage}}
-            <p>Error</p>
-            <p class="error">{{errorMessage}}</p>
-            {{/if}}
-        </div>
+       
        <div>
         <h3>${{quoteData.c}}</h3>
         <p>${{quoteData.d}} ({{quoteData.dp}}%) Today</p>
@@ -64,13 +59,22 @@
                 </div>
                
             </form>
-     
+            
+                
+                {{#if errorMessage}}
+                <div class='error-div'>
+                    <p class="error-message">{{errorMessage}}</p>
+                </div>
+               
+                {{/if}}
+
+            
              </div>  
         </form> 
        
         <div class='button-div'> 
         <button class="btn btn-secondary" onclick="calculatePrice()" id='calculateTotal'>Calculate Estimate</button>
-         <p class='buying-text'>Buying Power Available: ${{accountMoney}} </p>
+         <p class='buying-text'>Buying Power Available: ${{accountInfo.buyingPower}} </p>
         </div>
 
         </div>

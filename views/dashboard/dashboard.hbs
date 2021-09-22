@@ -47,7 +47,7 @@
 
           {{#each trade}}
           <div> 
-            <p>{{ticker}} - {{sharesNumber}}(shares)</p>
+            <p><a href="/stock/quote?symbol={{ticker}}" rel="noopener noreferrer" class='stock-link'>{{ticker}}</a>- {{sharesNumber}}(shares)</p>
             <p>${{tradeValue}}</p>
           </div>
           <hr>

@@ -24,7 +24,17 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
     const accountId = account[0]._id;
     console.log(accountId);
     Trade.find({ accountId: { $eq: accountId } }).then((trade) => {
-      console.log(trade);
+      console.log("This is trade ", trade);
+      let sumBalance = 0;
+      for (let i = 0; i < trade.length; i++) {
+        sumBalance = trade[i].tradeValue + sumBalance;
+      }
+
+      let newAccountBalance = sumBalance + account[0].buyingPower;
+
+      console.log("this is sum", sumBalance);
+      console.log("This is new Balance", newAccountBalance);
+
       finnhubClient.marketNews("general", {}, (error, data, response) => {
         const news = data;
         const accountInfo = account[0];
