@@ -4,6 +4,7 @@ const User = require('../models/User.model')
 const Comment = require('../models/Comment.model')
 const Post = require('../models/Post.model')
 const Account = require('../models/Account.model')
+const Watchlist = require('../models/Watchlist.model')
 const bcrypt = require("bcryptjs");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
@@ -68,6 +69,8 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         });
       } else if (bcrypt.compareSync(password, userFromDB.password)) {
         req.session.currentUser = userFromDB;
+        const userId = userFromDB.
+        
         res.status(200).redirect("/dashboard");
       } else {
         res
@@ -79,8 +82,41 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 });
 
 router.get("/dashboard", isLoggedIn, (req, res, next) => {
-  res.render("user/dashboard", { user: req.session.currentUser });
+  // const userId = req.session.currentUser._id
+  // console.log('THIS IS USER ID',userId);
+  // Watchlist.find()
+  // .then((watchList) => {
+   
+  //   res.render("user/dashboard", {item: watchList, user: req.session.currentUser });
+  // })
+  //  console.log('watchList', watchList)
+
 });
+
+
+router.post('/dashboard/add/:ticker', isLoggedIn, (req, res, next) => {
+  const {ticker} = req.params;
+  const author = req.session.currentUser._id;
+
+  Watchlist.create({tickerId: ticker, authorId: author})
+  .then((newWatchlist) => {
+    console.log(newWatchlist)
+  })
+
+  // User.findById(req.session.currentUser).then((user) => {
+  //   if(user.watchList.includes(ticker)) {
+  //     console.log('this ticker is on watchList')
+  //   }else {
+  //   User.findByIdAndUpdate({_id: req.session.currentUser._id},
+  //                             {$push: {watchList: ticker}})
+  //   .then((thisUser) => {
+  //     console.log('this is updated watchlist', thisUser)
+  //     res.redirect('back')
+  //   }) 
+  //   }
+  // })
+})
+ 
 
 router.get("/logout", isLoggedIn, (req, res) => {
   req.logout();

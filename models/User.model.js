@@ -15,7 +15,8 @@ const userSchema = new Schema({
   },
   password: String,
   accountId: { type: Schema.Types.ObjectId, ref: "Account" },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+  watchList: [{type: String}]
 });
 
 const User = model("User", userSchema);
