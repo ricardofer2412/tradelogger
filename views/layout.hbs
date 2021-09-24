@@ -11,6 +11,7 @@
    <link rel="stylesheet" href="/stylesheets/stock-info.css" />
    <link rel="stylesheet" href="/stylesheets/style.css" />
    <link rel="stylesheet" href="/stylesheets/stockInfo.css" />
+   <link rel="stylesheet" href="/stylesheets/responsive.css" />
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
    </head>
@@ -43,8 +44,7 @@
       <a class='stock-link' href="/dashboard">Home</a>
       <a class='stock-link' href="/news">News</a>
          <a class='stock-link' href="/news">Watchlist</a>
-         <a class='stock-link' href="/news">Account</a>
-       
+         <a class='stock-link' href="/news">Account</a>   
 </div>
 <div class="navbar-search">
    <form action="/stock/quote">
@@ -65,8 +65,9 @@
       <a style="text-decoration: none;" href="/login" class="a-login">Log In</a>
    </div>
    {{/if}}
+
     <div>
-      <img src="images/moon.png" alt="" id='icon'>
+      <img src="/images/moon.png" alt="" id='icon'>
    </div>
 </div>
 
@@ -76,6 +77,8 @@
    <div class='body'>
          {{{body}}}
    <script src="/js/watchListPrice.js"></script>
+
+
    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
       integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
@@ -84,21 +87,8 @@
 
    <script src="/js/getGraph.js"></script>
    <script src="/js/script.js"></script>
-   <script>
-      var icon = document.getElementById('icon')
-      var logo = document.getElementById('logo')
-      icon.onclick = function() {
-         document.body.classList.toggle('dark-theme')
-         if(document.body.classList.contains('dark-theme')){
-            icon.src = 'images/sun.png'
-            logo.src = '/images/logo-light.png'
-           
-         } else {
-            icon.src = 'images/moon.png'
-             logo.src = '/images/logo.png'
-         }
-      }
-   </script>
+   <script src='/js/darkMode.js'> </script>
+ 
 </body>
 
 </html>

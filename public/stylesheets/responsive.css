@@ -1,0 +1,82 @@
+@media (max-width: 600px) {
+    :root {
+        --primary-color: white;
+        --secondary-color: #212121;
+        --border-color: rgb(64, 73, 78);
+        --green-color: #17a021;
+      }
+      
+      .dark-theme {
+        --primary-color: #000106;
+        --secondary-color: #fff;
+        --third-color: rgb(30, 33, 36);
+        --border-color: rgb(64, 73, 78);
+        --green-color: #17a021;
+      }
+    #main {
+ 
+        
+     }
+     .chart {
+
+     }
+    .main {
+  
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    
+      padding: 10px;
+      margin-right: 0px;
+      padding-right: 0px;
+      width: 600px
+
+  }
+  #myChart {
+
+      width: 600px;
+      height: 150px;
+  }
+  .news {
+      display: none;
+  }
+  .stock-buy-div{
+    
+    width: 600px;
+    
+
+  }
+  .body {
+      width: 100%;
+      padding: 0px;
+      margin-right: 0px;
+      padding-right: 0px;
+  }
+  .stock-price-info {
+      width: 100%;
+      margin: 0px
+  }
+  .balance {
+      font-size: 40px;
+  }
+  .accountBalance {
+      width: 600px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+
+   
+  }
+  .buy-div  {
+      width: 600px;
+      margin: 0px;
+
+    
+  }
+
+
+  
+
+
+
+
+  }

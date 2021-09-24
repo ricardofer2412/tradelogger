@@ -31,19 +31,38 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
         sumBalance = trade[i].tradeValue + sumBalance;
       }
       const userId = req.session.currentUser._id
-      console.log('THIS IS USER ID',userId);
-      
+     
       Watchlist.find({authorId: userId}).then((watchList) => {
-      // console.log("this is sum", sumBalance);
-      // console.log("This is new Balance", newAccountBalance);
-    
+        
         let newAccountBalance = sumBalance + account[0].buyingPower;            
         const accountInfo = account[0];
-        finnhubClient.marketNews("general", {}, (error, data, response) => {
-            const news = data;
-            res.render("dashboard/dashboard", { accountInfo, news, trade, watchList });
-          })
+
+        
+      //   for (let i = 0; i < watchList.length; i++) {
+      //     let arrOfObj = []
+      //   const ticker = watchList[i].tickerId
+        
+      //   finnhubClient.quote(ticker, (error, data, response) => {
+          
+      //     let prices = data.c;
+      //     arrOfObj.push({ticker: ticker, price: prices})
+      //     // console.log(ticker)
+      //     // console.log(prices)
+      //   })
+      // return arrOfObj;
+      // };
+          // console.log('this is arra of obj',arrOfObj)      
+          
+          
+      finnhubClient.marketNews("general", {}, (error, data, response) => {
+        const news = data;
+              res.render("dashboard/dashboard", { accountInfo, news, trade, watchList});
+            })
+          
+              
       });
+      // console.log("this is sum", sumBalance);
+      // console.log("This is new Balance", newAccountBalance);
     });
   });
 });

@@ -1,9 +1,6 @@
-const { reset } = require("nodemon");
-const { route } = require(".");
-const { routes, render } = require("../app");
 const Trades = require("../models/Trade.model");
 const router = require("express").Router();
-const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
+const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
 router.get("/", isLoggedIn, (req, res, next) => {
   Trades.find().then((responseFromDB) => {

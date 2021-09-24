@@ -1,18 +1,11 @@
-
-:root {
-  --primary-color:white;
-  --secondary-color: #212121;
-
+h4 {
+  color: var(--secondary-color);
 }
-
-.dark-theme {
-    --primary-color: #000106;
-    --secondary-color: #fff;
+label {
+  color: var(--secondary-color);
 }
-
-
 .main {
-  height: 100vh;
+
   display: flex;
 }
 
@@ -96,30 +89,26 @@
   text-align: center;
 }
 
-
 #submitComment {
-  background-color: var(--green-color) ;
+  background-color: var(--green-color);
   border: 1px solid var(--green-color);
 }
 
 .comment-button-div {
-  margin-top: 10px
-
+  margin-top: 10px;
 }
 
 #delete-icon {
   color: red;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .action-button-div {
   display: flex;
-
 }
 
 #action-button {
   margin-right: 10px;
-
 }
 
 .username {
@@ -131,7 +120,7 @@
 .user-post {
   display: flex;
 }
-.time{
+.time {
   font-size: 13px;
-  color: gray
+  color: gray;
 }

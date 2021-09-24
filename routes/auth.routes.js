@@ -21,29 +21,46 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
     });
   } else {
     User.findOne({ username }).then((user) => {
-      if (!user) {
-        const hashedPassword = bcrypt.hashSync(password, 10);
+      if (!user) 
+      {
+        User.findOne({ email }).then((email) => 
+        {
 
-        User.create({
-          firstName,
-          lastName,
-          email,
-          username,
-          password: hashedPassword,
-        }).then((createdUser) => {
-          const userId = createdUser._id;
-          Account.create({
-            buyingPower: 100000,
-            accountBalance: 100000,
-            userId: userId,
-          }).then((account) => {
-            return User.findByIdAndUpdate(userId, {
-              accountId: account._id,
-            }).then(() => {
-              res.redirect("/dashboard");
+          if(!email){
+            const hashedPassword = bcrypt.hashSync(password, 10);
+
+            User.create({
+              firstName,
+              lastName,
+              email,
+              username,
+              password: hashedPassword,
+            }).then((createdUser) => {
+              const userId = createdUser._id;
+              Account.create({
+                buyingPower: 100000,
+                accountBalance: 100000,
+                userId: userId,
+              }).then((account) => {
+                return User.findByIdAndUpdate(userId, {
+                  accountId: account._id,
+                }).then(() => {
+                  res.redirect("/dashboard");
+                });
             });
           });
-        });
+          }else{
+            res.status(500).render("user/signup", {
+              errorMessage:
+              "This email is already being used, please try a different one or login."
+            })
+          }
+        })
+      }else{
+        res.status(500).render("user/signup", {
+          errorMessage:
+          "This username is already being used, please try a different one."
+        })
       }
     });
   }
@@ -69,7 +86,6 @@ router.post("/login", isLoggedOut, (req, res, next) => {
         });
       } else if (bcrypt.compareSync(password, userFromDB.password)) {
         req.session.currentUser = userFromDB;
-        const userId = userFromDB.
         
         res.status(200).redirect("/dashboard");
       } else {
@@ -87,7 +103,7 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
   // Watchlist.find()
   // .then((watchList) => {
    
-  //   res.render("user/dashboard", {item: watchList, user: req.session.currentUser });
+    // res.render("user/dashboard", {item: watchList, user: req.session.currentUser });
   // })
   //  console.log('watchList', watchList)
 

@@ -1,9 +1,10 @@
 <div class='main'>
      <div class='stock-price-info'>
         <div class='accountBalance'>
-             <h2>${{accountInfo.accountBalance}}</h2>
+            <h2 class='balance'>Investing</h2>
+             <h2 class='balance'>${{accountInfo.accountBalance}}</h2>
         </div>
-    <div class=''>
+    <div class='chart'>
              <canvas id="myChart" width="400" height="250"></canvas>
     </div>
     <hr class='line'>
@@ -16,7 +17,7 @@
     </div>
     </div>
     <hr class='line'>
-    <div> 
+     <div class='news'> 
         <div>
             <h3>News</h3>
             {{#each news}}
@@ -41,6 +42,8 @@
         </div>
     </div>
     </div>
+
+
     <div class='stock-buy-div'>
           <div class='buy-div'>
              <h3>Stocks</h3>
@@ -64,10 +67,10 @@
      <h3>Watch List</h3>
     
            {{!-- {{#if watchList}} --}}
-          {{#each watchList}}
+          {{#each arrOfObj}}
             <div> 
-              <p><a href="/stock/quote?symbol={{tickerId}}" rel="noopener noreferrer" class='stock-link'>{{tickerId}}</a>- </p>
-              <p>Current Price: </p>
+              <p><a href="/stock/quote?symbol={{ticker}}" rel="noopener noreferrer" class='stock-link'>{{ticker}}</a>- </p>
+              <p>Current Price: {{price}}</p>
               
               {{!-- <p>${{tradeValue}}</p> --}}
             </div>
