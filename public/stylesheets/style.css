@@ -64,7 +64,7 @@ h1 {
 }
 .landing-page {
   display: flex;
-
+  margin-top: -30px;
   margin-left: -14.33%;
   margin-right: -14.33%;
   height: 600px;
@@ -115,7 +115,7 @@ h1 {
 .features {
   background-color: var(--green-color);
   display: flex;
-  margin-left: -13.33%;
+  margin-left: -14.33%;
   margin-right: -14.33%;
   height: 650px;
 }
