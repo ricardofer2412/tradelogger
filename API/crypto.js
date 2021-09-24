@@ -2,7 +2,7 @@ const finnhub = require("finnhub");
 const router = require("../routes");
 
 const api_key = finnhub.ApiClient.instance.authentications["api_key"];
-api_key.apiKey = "budf5mn48v6ped90n62g";
+api_key.apiKey = API_KEY;
 const finnhubClient = new finnhub.DefaultApi();
 
 console.log("api request");
