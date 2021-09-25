@@ -369,3 +369,12 @@ li {
 .img-div {
   height: 50px;
 }
+
+.watch-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.watch-list-text {
+  padding-top: 10px;
+}
