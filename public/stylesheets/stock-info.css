@@ -49,6 +49,8 @@ label {
 
 .ticker {
   padding: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 .line {
   color: rgb(227, 233, 237);
