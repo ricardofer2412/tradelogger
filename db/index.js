@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 
 const MONGO_URI =
   process.env.MONGODB_URI ||
-  "mongodb+srv://admin_master:5618096706@kingtrader.mnlni.mongodb.net/tradelogger?retryWrites=true&w=majority";
+  "mongodb://localhost/tradelogger";
 
 mongoose
   .connect(MONGO_URI)

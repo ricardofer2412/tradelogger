@@ -3,6 +3,7 @@ const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 const Account = require("../models/Account.model");
 const finnhub = require("finnhub");
 const Trade = require("../models/Trade.model");
+const Watchlist = require('../models/Watchlist.model')
 
 const api_key = finnhub.ApiClient.instance.authentications["api_key"];
 api_key.apiKey = "";
@@ -29,18 +30,37 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
       for (let i = 0; i < trade.length; i++) {
         sumBalance = trade[i].tradeValue + sumBalance;
       }
-
-      let newAccountBalance = sumBalance + account[0].buyingPower;
-
-      console.log("this is sum", sumBalance);
-      console.log("This is new Balance", newAccountBalance);
-
+      const userId = req.session.currentUser._id
+     
+      Watchlist.find({authorId: userId}).then((watchList) => {
+        
+        let newAccountBalance = sumBalance + account[0].buyingPower;            
+        const accountInfo = account[0];
+        console.log('watchlist', watchList)
+        const arrOfObj = []
+        for (let i = 0; i < watchList.length; i++) {
+        const ticker = watchList[i].tickerId
+          finnhubClient.quote(ticker, (error, data, response) => {
+            const testArr = []
+            let prices = data.c;
+            console.log('data',data.c)
+            arrOfObj.push({ticker: ticker, price: prices})
+            // console.log(ticker)
+            console.log(testArr)
+          })
+        };
+         console.log('this is arra of obj',arrOfObj)      
+        // Promise.all(arrOfObj).then()
+          
       finnhubClient.marketNews("general", {}, (error, data, response) => {
         const news = data;
-        const accountInfo = account[0];
-        console.log(accountInfo);
-        res.render("dashboard/dashboard", { accountInfo, news, trade });
+            
+        res.render("dashboard/dashboard", { accountInfo, news, trade, watchList});
+            })
+              
       });
+      // console.log("this is sum", sumBalance);
+      // console.log("This is new Balance", newAccountBalance);
     });
   });
 });

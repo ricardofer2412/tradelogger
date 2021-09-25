@@ -33,16 +33,13 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
             Account.find({ userId: { $eq: user } }).then((account) => {
               Comment.find({ tickerId: stock }).then((commentFromDb) => {
                 const comments = commentFromDb.map((comment) => {
-                  console.log("this is comment authorId:", comment.authorId);
-                  console.log(
-                    "this is session authorId:",
-                    req.session.currentUser._id
-                  );
                   comment.userCanEdit =
                     comment.authorId == req.session.currentUser._id;
                   return comment;
+            
                 });
 
+                
                 const accountMoney = account[0].accountBalance;
                 const accountId = account[0]._id;
                 const accountInfo = account[0];
@@ -175,7 +172,6 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
     const accountId = account[0]._id;
     const newAccountBalance = account[0].buyingPower - tradeValue;
 
-    console.log("Account ID", accountId);
     //Check if already own stocks
 
     //If it does not own it create a new trade
@@ -194,7 +190,7 @@ router.post("/quote/:ticker", isLoggedIn, (req, res, next) => {
           accountId,
           ticker,
         }).then((tradeToDB) => {
-          console.log(tradeToDB);
+          // console.log(tradeToDB);
           return Account.updateOne(
             { userId: { $eq: userId } },
             { $set: { buyingPower: newAccountBalance.toFixed(2) } }
@@ -304,5 +300,7 @@ router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
       });
   });
 });
+
+
 
 module.exports = router;
