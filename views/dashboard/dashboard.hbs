@@ -70,9 +70,9 @@
           {{#each watchList}}
             <div class='watch-list'> 
               <p class='watch-list-text'><a href="/stock/quote?symbol={{tickerId}}" rel="noopener noreferrer" class='stock-link'>{{tickerId}}</a> </p>
-                <form action="/delete/{{_id}}" method="post">
+                {{!-- <form action="/delete/{{_id}}" method="post">
                   <button type='submit' class="btn btn-danger"><i class="material-icons">delete</i></button>
-                </form>
+                </form> --}}
             </div>
             <hr class='line'>
           {{/each}}

@@ -56,11 +56,21 @@
   
     <div class='stock-buy-div'>
         <div class='buy-div'>
+
             <div class='ticker'>
                 <h4 id='ticker'>{{companyData.ticker}}</h4>
-                <form action="/dashboard/add/{{companyData.ticker}}" method="post">
-                    <button type="submit" class="btn btn-primary">Add To Watchlist</button>
-                </form>
+             
+                {{#if favStock}}
+               
+                <form action="/dashboard/remove/{{favStock._id}}" method="post">
+                <button type="submit" class="btn btn-primary">Remove To Watchlist</button>
+            </form>
+                {{else}}
+             
+                    <form action="/dashboard/add/{{companyData.ticker}}" method="post">
+                        <button type="submit" class="btn btn-primary">Add from Watchlist</button>
+                    </form>
+                {{/if}}
             </div>
             <form method='POST'>
                 <div class='buy-form'>

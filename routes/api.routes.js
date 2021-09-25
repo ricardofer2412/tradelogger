@@ -12,6 +12,7 @@ const Account = require("../models/Account.model");
 const Trade = require("../models/Trade.model");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 const { countDocuments, deleteOne } = require("../models/Account.model");
+const Watchlist = require("../models/Watchlist.model");
 
 //search for stock
 router.get("/quote", isLoggedIn, (req, res, next) => {
@@ -36,10 +37,8 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
                   comment.userCanEdit =
                     comment.authorId == req.session.currentUser._id;
                   return comment;
-            
                 });
 
-                
                 const accountMoney = account[0].accountBalance;
                 const accountId = account[0]._id;
                 const accountInfo = account[0];
@@ -47,21 +46,30 @@ router.get("/quote", isLoggedIn, (req, res, next) => {
                   ticker: { $eq: stock },
                   accountId: { $eq: accountId },
                 }).then((trade) => {
-                  let sumBalance = 0;
-                  for (let i = 0; i < trade.lenght; i++) {
-                    console.log(trade.tradeValue);
-                  }
-                  const stockTrade = trade[0];
-                  res.render("stocks/stocks-info", {
-                    candleData,
-                    quoteData,
-                    companyData,
-                    stock,
-                    accountMoney,
-                    stockTrade,
-                    accountInfo,
-                    commentFromDb,
-                    errorMessage,
+                  Watchlist.find({
+                    authorId: { $eq: user },
+                    tickerId: { $eq: stock },
+                  }).then((watchlist) => {
+                    console.log(watchlist);
+                    const favStock = watchlist[0];
+                    console.log(favStock);
+                    let sumBalance = 0;
+                    for (let i = 0; i < trade.lenght; i++) {
+                      console.log(trade.tradeValue);
+                    }
+                    const stockTrade = trade[0];
+                    res.render("stocks/stocks-info", {
+                      candleData,
+                      quoteData,
+                      companyData,
+                      stock,
+                      accountMoney,
+                      stockTrade,
+                      accountInfo,
+                      commentFromDb,
+                      errorMessage,
+                      favStock,
+                    });
                   });
                 });
               });
@@ -300,7 +308,5 @@ router.post("/quote/:ticker/sell", isLoggedIn, (req, res, next) => {
       });
   });
 });
-
-
 
 module.exports = router;

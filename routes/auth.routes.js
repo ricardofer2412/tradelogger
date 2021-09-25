@@ -93,23 +93,16 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 });
 
-router.get("/dashboard", isLoggedIn, (req, res, next) => {
-  // const userId = req.session.currentUser._id
-  // console.log('THIS IS USER ID',userId);
-  // Watchlist.find()
-  // .then((watchList) => {
-  // res.render("user/dashboard", {item: watchList, user: req.session.currentUser });
-  // })
-  //  console.log('watchList', watchList)
-});
+router.get("/dashboard", isLoggedIn, (req, res, next) => {});
 
 router.post("/dashboard/add/:ticker", isLoggedIn, (req, res, next) => {
   const { ticker } = req.params;
   const author = req.session.currentUser._id;
-
+  console.log(ticker, author);
   Watchlist.create({ tickerId: ticker, authorId: author }).then(
     (newWatchlist) => {
-      res.redirect("/dashboard");
+      console.log(newWatchlist);
+      res.redirect("back");
     }
   );
 
@@ -125,6 +118,15 @@ router.post("/dashboard/add/:ticker", isLoggedIn, (req, res, next) => {
   //   })
   //   }
   // })
+});
+router.post("/dashboard/remove/:id", (req, res) => {
+  const { id } = req.params;
+  console.log("id", id);
+
+  Watchlist.findByIdAndDelete(id).then(() => {
+    console.log("Ticker remove from Watchlist");
+    res.redirect("back");
+  });
 });
 
 router.get("/logout", isLoggedIn, (req, res) => {
