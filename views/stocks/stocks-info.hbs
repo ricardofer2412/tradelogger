@@ -58,6 +58,9 @@
         <div class='buy-div'>
             <div class='ticker'>
                 <h4 id='ticker'>{{companyData.ticker}}</h4>
+                <form action="/dashboard/add/{{companyData.ticker}}" method="post">
+                    <button type="submit" class="btn btn-primary">Add To Watchlist</button>
+                </form>
             </div>
             <form method='POST'>
                 <div class='buy-form'>
@@ -85,6 +88,7 @@
                         </div>
     
                     </form>
+
     
     
                     {{#if errorMessage}}

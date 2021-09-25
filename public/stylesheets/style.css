@@ -39,6 +39,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: var(--primary-color);
   margin-bottom: 50px;
+  margin-left: 10px;
 }
 a {
   color: rgb(64, 73, 78);
@@ -174,12 +175,17 @@ li {
   margin-right: 80px;
   font-weight: bold;
 }
+.main{
+  display: flex;
+  flex-direction: row;
+  padding-left: 200px ;
+  padding-right: 200px;
+  padding-top: 30px;
+}
+
 .body {
   display: flex;
   flex-direction: column;
-  padding-left: 200px;
-  padding-right: 200px;
-  padding-top: 30px;
 }
 .navbar-div {
   display: flex;

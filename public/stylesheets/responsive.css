@@ -73,10 +73,81 @@
     
   }
 
+  /*******************************************Landing Page********************************/
+.navbar-div{
+    height: 30px;
+    width: 90%;
+}
 
-  
 
+.img-div {
+    height: 15px;
+    width: 100px;
+}
 
+.logo-img{
+    padding-top:50%;
+    height: 150px;
+    width: 100px;
+}
 
+.a-login {
+    color:red;
+    margin-right: 0px;
+    font-size: 14px;
+}
+
+.header{
+    background: none;
+    background-color: rgb(179, 236, 179);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    padding-left: 0px;
+}
+
+.box1{
+    padding-left: 0px;
+    width: 100%
+}
+.welcome-text{
+    width: 100%;
+    
+}
+
+.wta{
+    padding-left: 3px;
+    padding-top: 10px;
+    font-size: 28px;
+    color: black;
+    text-align: left;
+}
+.inves-text{
+    margin-top: 5px;
+}
+
+.investing-text{
+    font-size: 24px;
+    padding-left: 3px;
+    /* text-align: center; */
+    padding-top: 0px;
+    color: black
+}
+
+.div-span{
+    margin-top: 15px;
+    padding-left: 3px;
+    /* width: 60%; */
+}
+
+.span-text{
+    font-size: 18px;
+    color: black
+}
+
+.signup-btn{
+    margin-top: 20%;
+    margin-left: 50%;
+}
 
   }
