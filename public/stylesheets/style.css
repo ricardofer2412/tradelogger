@@ -48,70 +48,81 @@ h1 {
   color: 15px;
 }
 /* ........................ INDEX.HBS.............................. */
-.header {
-  background: url("../images/finance_img.jpeg") no-repeat, turquoise;
-  padding-left: 60rem;
+
+.box-1 {
+  background: url("../images/finance_img.jpeg") no-repeat;
+  width: 75%;
   background-size: cover;
-  width: 50%;
-  height: 91.5vh;
 }
-.box1 {
-  width: 485px;
-  height: 100%;
-  padding-left: 50px;
-  margin-bottom: 0;
-  display: block;
-  background-color: turquoise;
-  /* padding-right: 5px; */
+.box-2 {
+  background-color: var(--primary-color);
+  width: 35%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.wta {
-  font-family: Arial, Helvetica, sans-serif;
+.landing-page {
+  display: flex;
+  margin-top: -30px;
+  margin-left: -14.33%;
+  margin-right: -14.33%;
+  height: 600px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 20px;
+  padding-left: 20px;
+
   padding-top: 60px;
-  font-size: 36px;
-  font-weight: 580;
-  text-align: center;
-  
 }
-.inves-text {
-  margin-top: 28px;
-}
-.investing-text {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 40px;
-  padding-top: 35px;
-}
-.div-span {
-  margin-top: 40px;
-}
-.span-text {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 23px;
-  font-weight: 545;
-}
-.div-button {
-  margin-top: 40px;
-}
-.signup-btn {
-  width: 185px;
+#signup-button {
+  background-color: var(--green-color);
+  width: 200px;
   height: 50px;
-  background-color: black;
-  border-radius: 20px;
+  border-radius: 15px;
+}
+#signup-button:hover {
+  background-color: var(--green-color);
+}
+
+.landing-button {
+  padding-top: 60px;
+}
+.landing-desc {
+  text-align: center;
+  font-weight: 200;
+}
+
+.box-3 {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 40px;
+}
+.box-4 {
+  width: 50%;
+  background: url("../images/box-4.svg") no-repeat;
+  background-size: contain;
+}
+.features {
+  background-color: var(--green-color);
+  display: flex;
+  margin-left: -14.33%;
+  margin-right: -14.33%;
+  height: 650px;
+}
+
+.box-3-text-title {
   color: white;
-  font-weight: 600;
-  margin-left: 120px;
-  margin-top: 10px;
-  box-shadow: inset 0 0 0 0 greenyellow;
-  transition: ease-out 0.3s;
-}
-.signup-btn:hover {
-  box-shadow: inset 300px 0 0 0 green;
-}
-.section {
-  height: 500px;
-}
-.footer {
-  background-color: turquoise;
-  height: 500px;
 }
 /* ........................ LAYOUT.HBS.............................. */
 .navbar {
