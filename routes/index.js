@@ -36,29 +36,27 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
         
         let newAccountBalance = sumBalance + account[0].buyingPower;            
         const accountInfo = account[0];
-
-        
-      //   for (let i = 0; i < watchList.length; i++) {
-      //     let arrOfObj = []
-      //   const ticker = watchList[i].tickerId
-        
-      //   finnhubClient.quote(ticker, (error, data, response) => {
-          
-      //     let prices = data.c;
-      //     arrOfObj.push({ticker: ticker, price: prices})
-      //     // console.log(ticker)
-      //     // console.log(prices)
-      //   })
-      // return arrOfObj;
-      // };
-          // console.log('this is arra of obj',arrOfObj)      
-          
+        console.log('watchlist', watchList)
+        const arrOfObj = []
+        for (let i = 0; i < watchList.length; i++) {
+        const ticker = watchList[i].tickerId
+          finnhubClient.quote(ticker, (error, data, response) => {
+            const testArr = []
+            let prices = data.c;
+            console.log('data',data.c)
+            arrOfObj.push({ticker: ticker, price: prices})
+            // console.log(ticker)
+            console.log(testArr)
+          })
+        };
+         console.log('this is arra of obj',arrOfObj)      
+        // Promise.all(arrOfObj).then()
           
       finnhubClient.marketNews("general", {}, (error, data, response) => {
         const news = data;
-              res.render("dashboard/dashboard", { accountInfo, news, trade, watchList});
+            
+        res.render("dashboard/dashboard", { accountInfo, news, trade, watchList});
             })
-          
               
       });
       // console.log("this is sum", sumBalance);

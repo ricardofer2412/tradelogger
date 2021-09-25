@@ -1,5 +1,5 @@
 <div class='main'>
-     <div class='stock-price-info'>
+    <div class='stock-price-info'>
         <div class='accountBalance'>
             <h2 class='balance'>Investing</h2>
              <h2 class='balance'>${{accountInfo.accountBalance}}</h2>
@@ -67,10 +67,10 @@
      <h3>Watch List</h3>
     
            {{!-- {{#if watchList}} --}}
-          {{#each arrOfObj}}
+          {{#each watchList}}
             <div> 
-              <p><a href="/stock/quote?symbol={{ticker}}" rel="noopener noreferrer" class='stock-link'>{{ticker}}</a>- </p>
-              <p>Current Price: {{price}}</p>
+              <p><a href="/stock/quote?symbol={{tickerId}}" rel="noopener noreferrer" class='stock-link'>{{tickerId}}</a> </p>
+              {{!-- <p>Current Price: {{price}}</p> --}}
               
               {{!-- <p>${{tradeValue}}</p> --}}
             </div>

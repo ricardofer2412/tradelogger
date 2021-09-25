@@ -12,7 +12,7 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
   res.render("user/signup");
 });
 
-router.post("/signup", isLoggedOut, (req, res, next) => {
+router.post("/signup", isLoggedOut,  (req, res, next) => {
   const { firstName, lastName, email, username, password } = req.body;
   console.log(firstName, lastName, email);
   if (!firstName || !lastName || !email || !username || !password) {
@@ -23,10 +23,11 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
     User.findOne({ username }).then((user) => {
       if (!user) 
       {
-        User.findOne({ email }).then((email) => 
+        console.log('this is email:',email)
+        User.findOne({ email }).then((response) => 
         {
 
-          if(!email){
+          if(!response){
             const hashedPassword = bcrypt.hashSync(password, 10);
 
             User.create({
