@@ -14,7 +14,7 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 
 router.post("/signup", isLoggedOut, (req, res, next) => {
   const { firstName, lastName, email, username, password } = req.body;
-  console.log(firstName, lastName, email);
+
   if (!firstName || !lastName || !email || !username || !password) {
     res.render("user/signup", {
       errorMessage: "Please fill out all required fields",
@@ -22,7 +22,6 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
   } else {
     User.findOne({ username }).then((user) => {
       if (!user) {
-        console.log("this is email:", email);
         User.findOne({ email }).then((response) => {
           if (!response) {
             const hashedPassword = bcrypt.hashSync(password, 10);
@@ -69,7 +68,6 @@ router.get("/login", isLoggedOut, (req, res, next) => {
 });
 
 router.post("/login", isLoggedOut, (req, res, next) => {
-  console.log("SESSION ======>", req.session);
   const { username, password } = req.body;
   if (!username || !password) {
     res.render("user/login", {
