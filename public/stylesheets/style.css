@@ -122,6 +122,50 @@ h1 {
 
 .box-3-text-title {
   color: white;
+  margin-left: 30px;
+}
+.feature-list {
+  padding: 40px;
+  margin-left: 40px;
+}
+.list-item {
+  display: flex;
+  margin: 25px;
+  margin-bottom: 70px;
+}
+#feature-icon {
+  color: white;
+  font-size: 20px;
+  margin-right: 15px;
+}
+.feature-text {
+  color: white;
+  font-weight: 200;
+}
+.footer {
+  background-color: black;
+  margin-left: -14.33%;
+  margin-right: -14.33%;
+  height: 100px;
+}
+.footer-text {
+  color: white;
+  text-align: center;
+  font-weight: 200;
+  font-size: 20px;
+}
+
+.footer-div {
+  margin-top: 30px;
+}
+
+.signup-button {
+  background-color: var(--green-color);
+  border-color: var(--green-color);
+}
+#signin-button {
+  background-color: var(--green-color);
+  border-color: var(--green-color);
 }
 /* ........................ LAYOUT.HBS.............................. */
 .navbar {
@@ -187,6 +231,8 @@ li {
 }
 .div-login {
   margin-right: 10px;
+}
+.dark-mode-toggle {
 }
 .nav-menu {
   padding: 10px;

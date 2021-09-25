@@ -5,8 +5,8 @@ label {
   color: var(--secondary-color);
 }
 .main {
-
   display: flex;
+  margin-bottom: 50px;
 }
 
 .stock-price-info {
@@ -16,6 +16,10 @@ label {
 .stock-buy-div {
   width: 500px;
   padding: 20px;
+}
+
+.form-control {
+  background-color: var(--third-color);
 }
 
 .buy-div {
