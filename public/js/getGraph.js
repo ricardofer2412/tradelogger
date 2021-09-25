@@ -1,9 +1,34 @@
 window.onload = () => {
   const ticker = document.getElementById("ticker").innerText;
+  console.log("this is ticker");
   console.log("this is ticker", ticker);
   const api = "budf5mn48v6ped90n62g";
-  console.log(api);
+
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${api}`;
+
+  const arr = document.querySelectorAll("#watchlist-text");
+  for (let i = 0; i < arr.length; i++) {
+    const ticker = document.querySelectorAll("#watchlist-text")[i].innerText;
+
+    console.log(ticker);
+
+    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=${api}`;
+
+    axios.get(url).then((responseFromAPI) => {
+      const timeSeries = responseFromAPI.data["Time Series (5min)"];
+      // const lastPrice = timeSeries[timeSeries.length - 1];
+      const labels = Object.keys(timeSeries);
+
+      const prices = labels.map((label) => timeSeries[label]["4. close"]);
+
+      const lastPrice = prices[prices.length - 1];
+
+      console.log(lastPrice);
+      var element = document.getElementById(`currentPrice${i}`);
+
+      element.innerText += Number(lastPrice).toFixed(2);
+    });
+  }
 
   axios.get(url).then((responseFromAPI) => {
     const timeSeries = responseFromAPI.data["Time Series (5min)"];

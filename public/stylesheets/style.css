@@ -379,6 +379,10 @@ li {
   padding-top: 10px;
 }
 
+.price {
+  color: var(--secondary-color);
+}
+
 #addList {
   font-size: 30px;
   color: orange;
@@ -396,4 +400,11 @@ li {
   font-size: 30px;
   color: red;
   border-color: black;
+}
+
+#logout-icon {
+  color: var(--green-color);
+  margin-left: 5px;
+  font-size: 27px;
+  padding-top: 10px;
 }

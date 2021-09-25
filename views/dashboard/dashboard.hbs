@@ -66,19 +66,17 @@
 
      <h3>List</h3>
     
-           {{!-- {{#if watchList}} --}}
+           {{#if watchList}}
           {{#each watchList}}
-            <div class='watch-list'> 
-              <p class='watch-list-text'><a href="/stock/quote?symbol={{tickerId}}" rel="noopener noreferrer" class='stock-link'>{{tickerId}}</a> </p>
-                {{!-- <form action="/delete/{{_id}}" method="post">
-                  <button type='submit' class="btn btn-danger"><i class="material-icons">delete</i></button>
-                </form> --}}
+            <div class='watch-list' id='watchlist-div'> 
+              <p class='watch-list-text' id='watchlist-text'><a href="/stock/quote?symbol={{tickerId}}" rel="noopener noreferrer" class='stock-link'>{{tickerId}}</a> </p>
+              <div  class='price' id='currentPrice{{@index}}'></div>
             </div>
             <hr class='line'>
           {{/each}}
-            {{!-- {{else}}
+            {{else}}
             <p> You are not watching any stocks</p>
-          {{/if}} --}}
+          {{/if}}
    
     </div>
   </div>
